@@ -1,0 +1,636 @@
+#!/bin/bash
+
+# Welcome to the laptop setup script!
+# Be prepared to turn your laptop (or desktop)
+# into an awesome development machine.
+
+# FUNCTIONS
+append_to_file() {
+  local file="$1"
+  local text="$2"
+
+  if ! grep -qs "^$text$" "$file"; then
+    printf "\\n%s\\n" "$text" >> "$file"
+  fi
+}
+
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\\n$fmt\\n" "$@"
+}
+
+brew_is_installed() {
+  brew list -1 | grep -Fqx "$1"
+}
+
+tap_is_installed() {
+  brew tap | grep -Fqx "$1"
+}
+
+create_zshrc_and_set_it_as_shell_file() {
+  if [ ! -f "$HOME/.zshrc" ]; then
+    touch "$HOME/.zshrc"
+  fi
+
+  shell_file="$HOME/.zshrc"
+}
+
+create_profile_and_set_it_as_shell_file() {
+  if [ ! -f "$HOME/.profile" ]; then
+    touch "$HOME/.profile"
+  fi
+
+  shell_file="$HOME/.profile"
+}
+
+change_shell_to_zsh() {
+  fancy_echo "Please enter your password to continue."
+  echo "Note that there won't be visual feedback when you type your password."
+  echo "Type it slowly and press return, or press control-c to cancel the switch to zsh and exit the script."
+  create_zshrc_and_set_it_as_shell_file
+  chsh -s "$(command -v zsh)"
+  echo "Note that you can always switch back to ${bold}bash${normal} if you change your mind."
+  echo "The instructions for changing shells manually are available in the README."
+}
+
+gem_install_or_update() {
+  if gem list "$1" | grep "^$1 ("; then
+    fancy_echo "Updating %s ..." "$1"
+    gem update "$@"
+  else
+    fancy_echo "Installing %s ..." "$1"
+    gem install "$@"
+  fi
+}
+
+app_is_installed() {
+  local app_name
+  app_name=$(echo "$1" | cut -d'-' -f1)
+  find /Applications -iname "$app_name*" -maxdepth 1 | grep -E '.app' > /dev/null
+}
+
+latest_installed_ruby() {
+  find "$HOME/.rubies" -maxdepth 1 -name 'ruby-*' | tail -n1 | grep -E -o '\d+\.\d+\.\d+'
+}
+
+switch_to_latest_ruby() {
+  # shellcheck disable=SC1091
+  . /usr/local/share/chruby/chruby.sh
+  chruby "ruby-$(latest_installed_ruby)"
+}
+
+no_prompt_customizations_in_shell_file() {
+  ! grep -qs -e "PS1=" -e "precmd" -e "PROMPT=" "$shell_file"
+}
+
+no_zsh_frameworks() {
+  [ ! -d "$HOME/.oh-my-zsh" ] && [ ! -d "$HOME/.zpresto" ] && [ ! -d "$HOME/.zim" ] && [ ! -d "$HOME/.zplug" ]
+}
+# END FUNCTIONS
+
+
+fancy_echo "====== Required Info ======"
+echo "GitHub credentials to setup ssh key"
+echo "NPM_TOKEN at the ready (analyst-ng) or already set on the shell as an env variable."
+echo "VPN configured and connected (security team will provide configurations)"
+echo " - EA AND SP VPNs..."
+echo "Install System Updates & XCode in the app store"
+echo " - xcode installed: xcode-select --install"
+echo " - sudo xcodebuild -license"
+echo ""
+
+
+fancy_echo "====== This Script Will ======"
+echo "Install Homebrew and everything in Brewfile"
+cat ./Brewfile
+
+
+echo ""
+echo "Install and configure chruby (ruby) Manager"
+echo "Install and configure N (node) Manager"
+echo "Install and configure Java"
+echo "Configure ssh keys for GitHub (or w/e)"
+echo "Configure bash shortcuts and scripts"
+echo "Clone SparkPost Repositories"
+echo "Run a gradle build on analyst-ng"
+echo "Configure AWS-Cli for analyst-ng"
+
+
+echo ""
+read -p "You good to go? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+export LAPTOP_REPO="$HOME/laptop-setup";
+export SP_REPOS="$HOME/Development/SparkPost";
+export UTILS="$HOME/utils"
+export CONFIGS="/opt/configs"
+export SCRIPTS="$HOME/.scripts";
+
+echo "Creating required folders"
+mkdir -p $SCRIPTS
+mkdir -p $UTILS
+mkdir -p $SP_REPOS
+sudo mkdir -p $CONFIGS
+sudo chown $USER /opt/configs
+
+source "$LAPTOP_REPO/pathmunge.bash"
+
+pathmunge "/usr/local/sbin"
+
+
+# maybe we shouldn't have this?
+# echo ""
+# read -p "Would you license xcodebuild? [Y/n]: " response
+# response=${response:-y}
+# if [ "$response" = "y" ]; then
+#   sudo xcodebuild -license # xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
+# fi
+
+
+
+if [ ! $NPM_TOKEN ]; then 
+  echo ""
+  read -p "Please enter your NPM token for analyst-ng: " NPM_TOKEN
+  echo ""
+
+  export NPM_TOKEN=$NPM_TOKEN
+fi
+
+
+
+# shellcheck disable=SC2154
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+
+
+
+set -e
+
+
+
+if [ ! -d "$HOME/.bin/" ]; then
+  mkdir "$HOME/.bin"
+fi
+
+
+
+case "$SHELL" in
+  */zsh) :
+    create_zshrc_and_set_it_as_shell_file
+    ;;
+  *)
+    create_profile_and_set_it_as_shell_file
+    if [ -z "$CI" ]; then
+      bold=$(tput bold)
+      normal=$(tput sgr0)
+      echo "Want to switch your shell from the default ${bold}bash${normal} to ${bold}zsh${normal}?"
+      echo "Both work fine for development, and ${bold}zsh${normal} has some extra "
+      echo "features for customization and tab completion."
+      echo "If you aren't sure or don't care, we recommend ${bold}zsh${normal}."
+      echo -n "Press ${bold}y${normal} to switch to zsh, ${bold}n${normal} to keep bash: "
+      read -r -n 1 response
+      if [ "$response" = "y" ]; then
+        fancy_echo "=== Getting ready to change your shell to zsh. ==="
+        if ! grep -qs "$(command -v zsh)" /etc/shells; then
+          echo "It looks like your version of zsh is missing from ${bold}/etc/shells${normal}."
+          echo "It must be added there manually before your shell can be changed."
+          echo "Open ${bold}/etc/shells${normal} with your favorite text editor,"
+          echo "then add ${bold}$(command -v zsh)${normal} in a new line and save the file."
+          echo -n "Once you've added it, press ${bold}y${normal} to continue, or ${bold}n${normal} to cancel: "
+          read -r -n 1 response
+          if [ "$response" = "y" ]; then
+            change_shell_to_zsh
+          else
+            fancy_echo "Shell will not be changed."
+          fi
+        else
+          change_shell_to_zsh
+        fi
+      else
+        fancy_echo "Shell will not be changed."
+      fi
+    else
+      fancy_echo "CI System detected, will not change shells"
+    fi
+    ;;
+esac
+
+
+
+# shellcheck disable=SC2016
+append_to_file "$shell_file" 'export PATH="$HOME/.bin:$PATH"'
+
+
+
+echo ""
+read -p "Would you like to install Homebrew and the Brewfile? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+
+  if ! command -v brew >/dev/null; then
+    fancy_echo "Installing Homebrew ..."
+      curl -fsS \
+        'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+
+      # shellcheck disable=SC2016
+      append_to_file "$shell_file" 'export PATH="/usr/local/bin:$PATH"'
+  else
+    fancy_echo "Homebrew already installed. Skipping ..."
+  fi
+
+  # Remove brew-cask since it is now installed as part of brew tap caskroom/cask.
+  # See https://github.com/caskroom/homebrew-cask/releases/tag/v0.60.0
+  if brew_is_installed 'brew-cask'; then
+    brew uninstall --force 'brew-cask'
+  fi
+
+  if tap_is_installed 'caskroom/versions'; then
+    brew untap caskroom/versions
+  fi
+
+  fancy_echo "Updating Homebrew ..."
+  cd "$(brew --repo)" && git fetch && git reset --hard origin/master && brew update
+
+  fancy_echo "Verifying the Homebrew installation..."
+  if brew doctor; then
+    fancy_echo "Your Homebrew installation is good to go."
+  else
+    fancy_echo "Your Homebrew installation reported some errors or warnings."
+    echo "Review the Homebrew messages to see if any action is needed."
+  fi
+
+  fancy_echo "Installing formulas and casks from the Brewfile ..."
+  if brew bundle --file="$LAPTOP_REPO/Brewfile"; then
+    fancy_echo "All formulas and casks were installed successfully."
+  else
+    fancy_echo "Some formulas or casks failed to install."
+    echo "This is usually due to one of the Mac apps being already installed,"
+    echo "in which case, you can ignore these errors."
+  fi
+
+  brew install openresty/brew/openresty
+fi
+
+
+
+echo ""
+read -p "Would you like to configure Ruby? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+
+  # shellcheck disable=SC2016
+  append_to_file "$shell_file" 'eval "$(hub alias -s)"'
+
+  append_to_file "$HOME/.gemrc" 'gem: --no-document'
+
+if command -v rbenv >/dev/null || command -v rvm >/dev/null; then
+  fancy_echo 'We recommend chruby and ruby-install over RVM or rbenv'
+else
+  if ! brew_is_installed "chruby"; then
+    fancy_echo 'Installing chruby, ruby-install, and the latest Ruby...'
+
+    brew bundle --file=- <<EOF
+    brew 'chruby'
+    brew 'ruby-install'
+EOF
+
+    append_to_file "$shell_file" 'source /usr/local/share/chruby/chruby.sh'
+    append_to_file "$shell_file" 'source /usr/local/share/chruby/auto.sh'
+
+    ruby-install ruby
+
+    append_to_file "$shell_file" "chruby ruby-$(latest_installed_ruby)"
+
+    switch_to_latest_ruby
+  else
+    brew bundle --file=- <<EOF
+    brew 'chruby'
+    brew 'ruby-install'
+EOF
+    fancy_echo 'Checking if a newer version of Ruby is available...'
+    switch_to_latest_ruby
+
+    ruby-install --latest > /dev/null
+    latest_stable_ruby="$(cat < "$HOME/.cache/ruby-install/ruby/stable.txt" | tail -n1)"
+
+    if ! [ "$latest_stable_ruby" = "$(latest_installed_ruby)" ]; then
+      fancy_echo "Installing latest stable Ruby version: $latest_stable_ruby"
+      ruby-install ruby
+    else
+      fancy_echo 'You have the latest version of Ruby'
+    fi
+  fi
+fi
+
+  fancy_echo 'Updating Rubygems...'
+  gem update --system
+
+  gem_install_or_update 'bundler'
+
+  fancy_echo "Configuring Bundler ..."
+  number_of_cores=$(sysctl -n hw.ncpu)
+  bundle config --global jobs $((number_of_cores - 1))
+
+  fancy_echo '...Finished Ruby installation checks.'
+
+fi
+
+
+
+if [ -z "$CI" ] && no_zsh_frameworks && no_prompt_customizations_in_shell_file; then
+
+  echo ""
+  read -p "Would you like to customize your prompt to display the current directory and ruby version? [Y/n]: " response
+  response=${response:-y}
+  if [ "$response" = "y" ]; then
+    if ! grep -qs "prompt_ruby_info()" "$shell_file"; then
+      cat <<EOT >> "$shell_file"
+
+  prompt_ruby_info() {
+    echo $(ruby -v | grep -o 'ruby [^\( ]*')
+  }
+EOT
+    fi
+    # shellcheck disable=SC2016
+    append_to_file "$shell_file" 'GREEN=$(tput setaf 65)'
+    # shellcheck disable=SC2016
+    append_to_file "$shell_file" 'ORANGE=$(tput setaf 166)'
+    # shellcheck disable=SC2016
+    append_to_file "$shell_file" 'NORMAL=$(tput sgr0)'
+    # display pwd in orange, current ruby version in green,
+    # and set prompt character to $
+    # shellcheck disable=SC2016
+    if [ "$shell_file" = "$HOME/.profile" ]; then
+      append_to_file "$shell_file" 'export PS1="${ORANGE}[\w] ${GREEN}$(prompt_ruby_info) ${NORMAL}$ "'
+    else
+      append_to_file "$shell_file" 'precmd () { PS1="${ORANGE}[%~] ${GREEN}$(prompt_ruby_info) ${NORMAL}$ " }'
+    fi
+    # display directories and files in different colors when running ls
+    append_to_file "$shell_file" 'export CLICOLOR=1;'
+    append_to_file "$shell_file" 'export LSCOLORS=exfxcxdxbxegedabagacad;'
+  else
+    fancy_echo "Skipping prompt customization."
+  fi
+fi
+
+
+
+# EA STUFF HERE!
+#  https://github.com/SparkPost/analyst-ng/blob/develop-analyst/source/scripts-sysops/docker/eds-base/Dockerfile#L10
+export REDIS_DOWNLOAD_LINK="http://download.redis.io/releases/redis-3.2.4.tar.gz"
+echo ""
+read -p "Would you like to install redis 3.2.4 for Analyst-NG? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sudo curl -o "/tmp/${REDIS_DOWNLOAD_LINK##*/}" "$REDIS_DOWNLOAD_LINK"
+  echo -n "Extracting the archive... "
+  ARCHIVE_PATH="/tmp/${REDIS_DOWNLOAD_LINK##*/}"
+  mkdir -p "$UTILS/redis"
+  sudo tar -xf $ARCHIVE_PATH -C "$UTILS/redis"
+  redis_dir=$(find $UTILS/redis -mindepth 1 -maxdepth 1 -type d)
+  redis_version_folder=$(basename $redis_dir)
+  sudo chown $USER "$UTILS/redis/$redis_version_folder"
+  echo "OK"
+fi
+
+
+
+export JETTY_DOWNLOAD_LINK="https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.26.v20200117/jetty-distribution-9.4.26.v20200117.tar.gz"
+echo ""
+read -p "Would you like to install jetty 9.4.26 for Analyst-NG? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sudo curl -o "/tmp/${JETTY_DOWNLOAD_LINK##*/}" "$JETTY_DOWNLOAD_LINK"
+  echo -n "Extracting the archive... "
+  ARCHIVE_PATH="/tmp/${JETTY_DOWNLOAD_LINK##*/}"
+  mkdir -p "$UTILS/jetty"
+  sudo tar -xf $ARCHIVE_PATH -C "$UTILS/jetty"
+  jetty_dir=$(find $UTILS/jetty -mindepth 1 -maxdepth 1 -type d)
+  jetty_version_folder=$(basename $jetty_dir)
+  sudo chown $USER "$UTILS/jetty/$jetty_version_folder"
+  echo "OK"
+fi
+bash "$LAPTOP_REPO/configure-jetty.bash" jettypath="$UTILS/jetty/$jetty_version_folder" repo=$SP_REPOS
+jetty_dir=$(find $UTILS/jetty -mindepth 1 -maxdepth 1 -type d)
+
+
+
+# 5.0.5 - Works.
+# 5.1.4 - Has warnings about MariaDB...
+# 5.2.4 - BREAKS - Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+export FLYWAY_DOWNLOAD_LINK="https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/5.0.5/flyway-commandline-5.0.5-macosx-x64.tar.gz"
+echo ""
+read -p "Would you like to install flyway 5.0.5 for Analyst-NG? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sudo curl -o "/tmp/${FLYWAY_DOWNLOAD_LINK##*/}" "$FLYWAY_DOWNLOAD_LINK"
+  echo -n "Extracting the archive... "
+  ARCHIVE_PATH="/tmp/${FLYWAY_DOWNLOAD_LINK##*/}"
+  mkdir -p "$UTILS/flyway"
+  sudo tar -xf $ARCHIVE_PATH -C "$UTILS/flyway"
+  flyway_dir=$(find $UTILS/flyway -mindepth 1 -maxdepth 1 -type d)
+  sudo chown -R $USER "$flyway_dir"
+  echo "OK"
+fi
+
+
+
+echo ""
+read -p "Would you like to set the Flyway configuration file? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sed -i '' 's/# flyway.user=/flyway.user=root/g' "$flyway_dir/conf/flyway.conf"
+  sed -i '' 's/# flyway.password=/flyway.password=/g' "$flyway_dir/conf/flyway.conf"
+  sed -i '' 's/# flyway.placeholderReplacement=/flyway.placeholderReplacement=true/g' "$flyway_dir/conf/flyway.conf"
+fi
+
+
+
+# echo ""
+# read -p "Would you like to set configure your hosts file? [Y/n]: " response
+# response=${response:-y}
+# if [ "$response" = "y" ]; then
+
+hostname=$(hostname -f)
+echo ""
+read -p "Would you like to output the default hosts file to the console? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  echo ""
+  echo ""
+  echo "##"
+  echo "# Host Database"
+  echo "# localhost is used to configure the loopback interface"
+  echo "# when the system is booting.  Do not change this entry."
+  echo "##"
+  echo ""
+  echo "127.0.0.1               dev.eds.com localhost"
+  echo "127.0.0.1               1.dev.eds.com localhost"
+  echo "127.0.0.1               2.dev.eds.com localhost"
+  echo "127.0.0.1               3.dev.eds.com localhost"
+  echo "255.255.255.255         broadcasthost"
+  echo "::1                     localhost $hostname"
+  # The database has to have these for them to work + the name in the url has to be decided on so probably best to not have these be part of the default configuration and setup. 
+  # Instead, we should just make a comment to the new dev that this is something they can do, if they want
+  # echo "# 54.85.222.253         app.qa.emailanalyst.com"
+  # echo "127.0.0.1               neal.*.emailanalyst.com dev.eds.com  localhost"
+  # echo "127.0.0.1               1.neal.*.emailanalyst.com 1.dev.eds.com  localhost"
+  # echo "127.0.0.1               2.neal.*.emailanalyst.com 2.dev.eds.com  localhost"
+  # echo "127.0.0.1               3.neal.*.emailanalyst.com 3.dev.eds.com  localhost"
+  # echo "127.0.0.1               4.neal.*.emailanalyst.com 4.dev.eds.com  localhost"
+  # echo "127.0.0.1               5.neal.*.emailanalyst.com 5.dev.eds.com  localhost"
+  # echo "127.0.0.1               6.neal.*.emailanalyst.com 6.dev.eds.com  localhost"
+  # echo "127.0.0.1               7.neal.*.emailanalyst.com 7.dev.eds.com  localhost"
+  # echo "127.0.0.1               8.neal.*.emailanalyst.com 8.dev.eds.com  localhost"
+  # echo "127.0.0.1               neal.dev2.emailanalyst.com dev.eds.com  localhost"
+  echo ""
+  echo "127.0.0.1               localhost app.sparkpost.test api.sparkpost.test"
+  echo ""
+  echo ""
+fi
+
+#   read -p "  Would you like overwrite your hosts file with the defaults? [Y/n]: " response
+#   response=${response:-y}
+#   if [ "$response" = "y" ]; then
+#     sudo cat > /etc/hosts <<-EOF
+# # #
+# # Host Database
+# # localhost is used to configure the loopback interface
+# # when the system is booting.  Do not change this entry.
+# # #
+
+# 127.0.0.1               dev.eds.com localhost
+# 127.0.0.1               1.dev.eds.com localhost
+# 127.0.0.1               2.dev.eds.com localhost
+# 127.0.0.1               3.dev.eds.com localhost
+# 255.255.255.255         broadcasthost
+# ::1                     localhost $hostsname
+
+# 127.0.0.1               localhost app.sparkpost.test api.sparkpost.test
+# EOF
+#   fi
+# fi
+
+
+
+echo ""
+read -p "Would you like to create the database schemas for analsyt-ng? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  mysql_dir=$(find /usr/local/Cellar/mysql@5.6 -mindepth 1 -maxdepth 1 -type d)
+  mysql -u root --password='' <<< 'CREATE DATABASE IF NOT EXISTS evun;'
+  mysql -u root --password='' <<< 'CREATE DATABASE IF NOT EXISTS analyst;'
+  mysql -u root --password='' <<< 'CREATE DATABASE IF NOT EXISTS analystFlywayDev;'
+  mysql -u root --password='' <<< 'CREATE DATABASE IF NOT EXISTS boxbe;'
+fi
+
+
+
+echo ""
+read -p "Would you like to copy the configs over to /opt/configs for Analyst-NG? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sudo tar -xf "$LAPTOP_REPO/configs.tar.gz" -C "/opt/" --strip-components=1
+fi
+
+
+
+# GITHUB SSH
+bash "$LAPTOP_REPO/github-ssh.bash"
+
+# COPY SCRIPTS OVER
+cp "$LAPTOP_REPO/pathmunge.bash" $SCRIPTS
+cp "$LAPTOP_REPO/npm-publish.bash" $SCRIPTS
+cp "$LAPTOP_REPO/file-limit.bash" $SCRIPTS
+cp "$LAPTOP_REPO/gradle.bash" $SCRIPTS
+cp "$LAPTOP_REPO/start-services.bash" $SCRIPTS
+
+bash "$LAPTOP_REPO/update-java.bash" profile=$shell_file
+
+bash "$LAPTOP_REPO/dot-profile.bash" shellfile=$shell_file token=$NPM_TOKEN utils="$UTILS"
+echo "~/.zshrc"
+echo "~/.profile"
+append_to_file "$HOME/.zshrc" "source $HOME/.bash-mac-profile"
+append_to_file "$HOME/.profile" "source $HOME/.bash-mac-profile"
+
+bash "$LAPTOP_REPO/analyst-ng-node-npm.bash"
+bash "$LAPTOP_REPO/clone-repos.bash"
+bash "$LAPTOP_REPO/dry-run-analyst-ng.bash" repo=$SP_REPOS
+
+
+
+echo ""
+read -p "Would you like to start the brew services? (requires sudo) [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  bash "$SCRIPTS/start-services.bash"
+fi
+
+
+
+# AWS - jetty classpath and project files - requires analyst-ng repo downloaded
+echo ""
+read -p "Would you like to copy the jetty .classpath and .project files from Analyst-NG to jetty? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  cd $jetty_dir && cp $SP_REPOS/analyst-ng/source/config/jetty/dot.project .project && cp $SP_REPOS/analyst-ng/source/config/jetty/dot.classpath .classpath
+  jetty_version=$(basename $jetty_dir)
+  sed -i '' "s/REPLACETHIS/${jetty_version/jetty-distribution-/}/g" "$jetty_dir/.classpath"
+  sed -i '' "s/asm-5.0.1.jar/asm-7.2.jar/g" "$jetty_dir/.classpath"
+  sed -i '' "s/asm-commons-5.0.1.jar/asm-commons-7.2.jar/g" "$jetty_dir/.classpath"
+  sed -i '' "s/javax.annotation-api-1.2.jar/javax.annotation-api-1.3.jar/g" "$jetty_dir/.classpath"
+fi
+
+
+# https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html#cliv2-mac-install-cmd-current-user
+# AWS - analyst-ng
+AWS_PACKAGE="AWSCLIV2.pkg"
+AWS_DOWNLOAD_LINK="https://awscli.amazonaws.com/$AWS_PACKAGE"
+echo ""
+read -p "Would you like to configure AWS-CLI for Analyst-NG? [Y/n]: " response
+response=${response:-y}
+if [ "$response" = "y" ]; then
+  sudo curl -o "/tmp/${AWS_DOWNLOAD_LINK##*/}" "$AWS_DOWNLOAD_LINK"
+  sudo installer -pkg "/tmp/$AWS_PACKAGE" -target /
+  echo "use output=json and region=us-east-1"
+  aws configure
+fi
+
+
+
+# could store in the repo and copy over
+BOUNCY_CASTLE_VERSION="1.58"
+sudo cp ./bcprov-ext-jdk15on-1.62.jar "$jetty_dir/lib/ext"
+# could prompt if user wants to fetch from the url
+# "https://repo1.maven.org/maven2/org/bouncycastle/bcprov-ext-jdk15on/${BOUNCY_CASTLE_VERSION}/bcprov-ext-jdk15on-${BOUNCY_CASTLE_VERSION}.jar > bcprov-ext-jdk15on-${BOUNCY_CASTLE_VERSION}.jar"
+# or output into action required area
+
+
+fancy_echo "== ACTION REQUIRED =="
+fancy_echo "Go configure Eclipse! https://confluence.int.messagesystems.com/display/ENG/Install+Eclipse"
+echo -e "  - ${RED}ClassPath variables${NC}: GRADLE_HOME = $HOME/.gradle/caches"
+echo -e "  - ${RED}Default VM Arguments${NC}: -Duser.timezone=\"UTC\" -Dmyproject.root=$SP_REPOS/analyst-ng -Xmx2G -noverify -Dfile.encoding=UTF-8"
+echo -e "  - ${RED}Install JRebel${NC}: https://confluence.int.messagesystems.com/display/ENG/Install+JRebel"
+echo -e "  - ${RED}Configure Save Actions${NC}: https://confluence.int.messagesystems.com/display/ENG/Configure+Eclipse+Save+and+Edit+Actions"
+# echo -e "  - ${RED}Install Bouncy Castle${NC}: cd $jetty_dir/lib/ext && wget https://repo1.maven.org/maven2/org/bouncycastle/bcprov-ext-jdk15on/${BOUNCY_CASTLE_VERSION}/bcprov-ext-jdk15on-${BOUNCY_CASTLE_VERSION}.jar"
+echo -e "  - ${RED}Configure Eclipse to Run Jetty${NC}"
+echo -e "    - File > Import > Existing Projects Into Workspace - Navigate to $jetty_dir and import the project."
+echo -e "    - Run > Run Configurations > Right click Java Application > "
+echo -e "      - Name - Something meaningful to you"
+echo -e "      - Project - Associate it with the Jetty Server project"
+echo -e "      - Main class - Set to org.eclipse.jetty.start.Main"
+echo '      - Add the following VM Arguments ${jrebel_args}'
+echo '    - Save the configuration and run the configuration. - Verify that http:\\localhost:8080 returns a 404 error with a blurb about being managed by Jetty.'
+echo -e "  - Potential gradle plugin conflict: Remove Build Ship Plugin: Eclipse -> About Eclipse -> Installation Details > uninstall build ship plugin"
+echo -e "    - Only needed if gradle is conflicting with the plugin resulting in errors"
+echo ""
+echo "Go to http://dev.eds.com:8080/ once you have jetty running!"
+
+fancy_echo "All done! Close your terminal windows and re-open them! (or run \"source $shell_file\")"
+
+fi

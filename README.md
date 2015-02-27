@@ -1,0 +1,98 @@
+Laptop
+======
+[![Build Status](https://travis-ci.org/monfresh/laptop.svg)](https://travis-ci.org/monfresh/laptop)
+
+Laptop is a script to set up a macOS computer for web development, and to keep
+it up to date.
+
+It can be run multiple times on the same machine safely. It installs,
+upgrades, or skips packages based on what is already installed on the machine.
+
+This particular version of the script is geared toward beginners who want to
+set up a Ruby environment on their Mac to be able to install gems such as Rails
+or Jekyll. More advanced users can easily [customize](#customize-in-laptoplocal-and-brewfilelocal)
+the script to install additional tools. To see an example of a more advanced
+script, check out [18F/laptop](https://github.com/18F/laptop).
+
+The script also lightly customizes your shell prompt so that it displays your
+current directory in orange, followed by the current Ruby version or gemset in
+green, and sets the prompt character to `$`. It also allows you to easily
+distinguish directories from files when running `ls` by displaying directories
+in a different color. Below is a screenshot showing what the colors look like
+when using the default Terminal white background, the Solarized Dark theme, and the Solarized Light theme.
+
+If you want to use the [Solarized](http://ethanschoonover.com/solarized)
+themes, run the following commands in your Terminal:
+```bash
+cd ~
+
+curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Dark.terminal
+
+curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Light.terminal
+
+open Solarized%20Dark.terminal
+
+open Solarized%20Light.terminal
+```
+
+This will add the Solarized themes to your Terminal's Profiles, and if you want to set one of them as the default, go to your Terminal's Preferences,
+click on the Settings tab, scroll down to the Solarized Profile, click on it,
+then click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal), it will use the Solarized theme.
+
+If you want to try out different prompt colors other than orange and green,
+open your `.zshrc` or `.bash_profile` in Sublime Text:
+
+```sh
+subl ~/.zshrc
+```
+
+Define a new color variable using any of the 256 possible [Xterm colors](http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png). For example:
+
+```
+BLUE=$(tput setaf 190)
+```
+
+Then in the line that contains `PS1=`, replace `{ORANGE}` or `{GREEN}` with
+`{BLUE}`. Save the file, then open a new Terminal window or tab to see the changes.
+
+
+How to manage background services
+----------------------------------------------------------
+The script does not automatically launch these services after installation
+because you might not need or want them to be running. With Homebrew Services,
+starting, stopping, or restarting these services is as easy as:
+
+```
+brew services start|stop|restart [name of service]
+```
+
+For example:
+
+```
+brew services start postgresql
+```
+
+To see a list of all installed services:
+
+```
+brew services list
+```
+
+To start all services at once:
+
+```
+brew services start --all
+```
+
+How to switch your shell back to bash from zsh (or vice versa)
+--------------------------------------------------------------
+1. Find out which shell you're currently running: `echo $SHELL`
+2. Find out the location of the shell you want to switch to. For example, if
+   you want to switch to `bash`, run `which bash`.
+3. Verify if the shell location is included in `/etc/shells`.
+   Run `cat /etc/shells` to see the contents of the file.
+4. If the location of the shell is included, run `chsh -s [the location of the shell]`.
+   For example, if `which bash` returned `/bin/bash`, you would run `chsh -s /bin/bash`.
+
+   If the location of the shell is not in `/etc/shells`, add it, then run the `chsh` command.
+   If you have Sublime Text, you can open the file by running `subl /etc/shells`.
