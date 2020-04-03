@@ -12,6 +12,12 @@ if [ "$response" = "y" ]; then
   # fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*
   # pushurl = do_not_push
 
+  # TODO: Add eslint pre-commit hook
+  # https://gist.github.com/nstanard/90ca92a2674093295060921f4f6d9050
+
+  #TODO: Add the commit-msg hook for jira tags
+  # https://gist.github.com/nstanard/70548079aad99f846fd344b19d013dad
+
   echo ""
   echo "Cloned from SparkPost. Create a fork and update the .git/config! (pushurl = do_not_push)"
 fi

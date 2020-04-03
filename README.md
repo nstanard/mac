@@ -1,20 +1,12 @@
 Laptop
 ======
-[![Build Status](https://travis-ci.org/monfresh/laptop.svg)](https://travis-ci.org/monfresh/laptop)
-
 Laptop is a script to set up a macOS computer for web development, and to keep
 it up to date.
 
 It can be run multiple times on the same machine safely. It installs,
 upgrades, or skips packages based on what is already installed on the machine.
 
-This particular version of the script is geared toward beginners who want to
-set up a Ruby environment on their Mac to be able to install gems such as Rails
-or Jekyll. More advanced users can easily [customize](#customize-in-laptoplocal-and-brewfilelocal)
-the script to install additional tools. To see an example of a more advanced
-script, check out [18F/laptop](https://github.com/18F/laptop).
-
-The script also lightly customizes your shell prompt so that it displays your
+If you want - the script also lightly customizes your shell prompt so that it displays your
 current directory in orange, followed by the current Ruby version or gemset in
 green, and sets the prompt character to `$`. It also allows you to easily
 distinguish directories from files when running `ls` by displaying directories

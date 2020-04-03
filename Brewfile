@@ -2,13 +2,11 @@ cask_args appdir: '/Applications'
 
 brew 'git'
 
-tap 'homebrew/services'
-
+brew 'awscli@2'
 brew 'gradle'
 brew 'exa'
 brew 'wget'
 brew 'cmake'
-brew 'dnsmasq'
 brew 'htop-osx'
 brew 'httpie'
 brew 'jq'
@@ -23,6 +21,7 @@ brew 'hub'
 brew 'n'
 brew 'redis'
 brew 'mysql@5.6'
+
 cask 'sequel-pro'
 cask 'postman'
 cask 'slack'
@@ -34,3 +33,5 @@ cask 'github'
 cask 'firefox'
 cask 'iterm2'
 cask 'eclipse-ide'
+
+tap 'homebrew/services'

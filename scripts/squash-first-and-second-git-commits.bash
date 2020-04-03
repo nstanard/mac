@@ -21,3 +21,9 @@ git checkout master
 
 # Replay all the commits after $2 onto the new initial commit
 git rebase --onto $TARGET $2
+
+# Change Commit
+# git commit --amend -m "squashed history"
+
+# Change Author
+# git commit --amend --author="Neal Stanard <nstanard@gmail.com>" --no-edit

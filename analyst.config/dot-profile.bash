@@ -68,9 +68,37 @@ export JAVA_BIN="$java_dir/Contents/Home/bin"
 alias ls='exa -G'
 alias ll='exa -lh --git --modified --icons'
 alias reload="source $shellfile"
-alias sublime="open -a 'Sublime Text.app'"
+alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
 alias code="open -a 'Visual Studio Code.app'"
+
+# function gradle() {
+#   if [ -e gradlew ]; then
+#     ./gradlew "$@"
+#   elif [ -e ../gradlew ]; then
+#     ./../gradlew "$@"
+#   else
+#     ./../../gradlew "$@"
+#   fi
+# }
+
+# function gradle() {
+# 	echo "$path"
+# 	path=$(pwd)
+# 	cmdPath=`expr "$path" : '^\(.*source\/[a-z0-9-]*\)'`
+# 	echo "$path"
+# 	[[ "$cmdPath" == "" ]] && cmdPath=`expr "$path" : '^\(.*analyst-ng\/[a-z0-9-]*\)'`
+# 	while [[ "$path" != "" && ! -e "$path/gradlew" ]]; do
+# 		path=${path%/*}
+# 	done
+# 	[[ $cmdPath = "" ]] && cmdPath="$path"
+# 	if [[ "$path" != "" && "$cmdPath" != "" ]]; then
+# 		echo "Building from: $cmdPath"
+# 		pushd "$cmdPath"
+# 		eval "${path}/gradlew --max-workers=6 $@"
+# 		popd
+# 	fi
+# }
 
 # flyway commands
 # evun
@@ -91,6 +119,7 @@ alias flyway-analyst-all="flyway-evun clean && flyway-analyst clean && flyway-an
 alias flyway-boxbe-counts="$flyway_dir/flyway -user=$MYSQL_USER -password=$MYSQL_PASS -url=\"jdbc:mysql://127.0.0.1:3306/boxbe_counts?autoReconnect=true&useUnicode=yes&characterEncoding=UTF-8\" -locations=\"filesystem:$SP_REPOS/analyst-ng/source/ext-db/boxbe-counts\""
 alias flyway-boxbe-counts-all='flyway-boxbe-counts clean && flyway-boxbe-counts migrate'
 
+alias sp="cd $SP_REPOS"
 alias ng="cd $SP_REPOS/analyst-ng/"
 alias cjs="cd $SP_REPOS/analyst-ng/common/common-js"
 
