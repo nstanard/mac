@@ -24,8 +24,8 @@ mkdir -p $MAC_SETUP_FOLDER
 # By default, a normal user does not have /usr/local/sbin on their path.
 pathmunge "/usr/local/sbin"
 
-# bash "$MAC_SETUP_FOLDER/scripts/shell.sh"
+bash "$MAC_SETUP_FOLDER/scripts/shell.sh"
 
-# bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh"
+bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh"
 
 bash "$MAC_SETUP_FOLDER/scripts/ruby.sh"
