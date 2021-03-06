@@ -44,6 +44,10 @@ create_zshrc_and_set_it_as_shell_file() {
   fi
 
   shell_file="$HOME/.zshrc"
+  # TODO: remove existing shell_file line from $devrc
+  # append_to_file $devrc "export shell_file=$shell_file;"
+  # TODO: remove existing source devrc from shell_file
+  # TODO: source devrc from shell_file
 }
 
 create_profile_and_set_it_as_shell_file() {
@@ -52,6 +56,10 @@ create_profile_and_set_it_as_shell_file() {
   fi
 
   shell_file="$HOME/.profile"
+  # TODO: remove existing shell_file line from $devrc
+  # append_to_file $devrc "export shell_file=$shell_file;"
+  # TODO: remove existing source devrc from shell_file
+  # TODO: source devrc from shell_file
 }
 
 change_shell_to_zsh() {
@@ -96,4 +104,18 @@ no_prompt_customizations_in_shell_file() {
 
 no_zsh_frameworks() {
   [ ! -d "$HOME/.oh-my-zsh" ] && [ ! -d "$HOME/.zpresto" ] && [ ! -d "$HOME/.zim" ] && [ ! -d "$HOME/.zplug" ]
+}
+
+apple_m1() {
+  sysctl -n machdep.cpu.brand_string | grep "Apple M1"
+}
+
+check_processor_and_set_chruby_source_strings() {
+  if apple_m1 && ! rosetta; then
+    chruby_source_string="source /opt/homebrew/opt/chruby/share/chruby/chruby.sh"
+    auto_source_string="source /opt/homebrew/opt/chruby/share/chruby/auto.sh"
+  else
+    chruby_source_string="source /usr/local/share/chruby/chruby.sh"
+    auto_source_string="source /usr/local/share/chruby/auto.sh"
+  fi
 }

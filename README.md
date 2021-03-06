@@ -2,6 +2,52 @@
 <!-- https://github.com/monfresh/laptop -->
 <!-- https://github.com/thoughtbot/laptop -->
 
+<!-- TODO:
+   - Create a node.js wrapper to pick which parts to run... then execute the bash file passing in args to control which parts run?
+
+   - Add back:
+      alias reload="source ~/.profile"
+      alias code="open -a 'Visual Studio Code.app'"
+
+      alias watch="npm run watch"
+      alias test="npm run test"
+
+      alias lc="alias"
+      alias ll="ls -lsG"
+      alias ls="exa --long --header --git"
+      # DECLARABLES #
+        export LSCOLORS="fafxcxdxbxegedabagacad"
+        export ANDROID_HOME=$HOME/Library/Android/sdk
+        export PATH=$PATH:$ANDROID_HOME//platform-tools
+        #export PS1="$: "
+        export PS1="[\u@\h \W]\\$ "
+
+      # GITHUB #
+
+      ghns ()
+      {
+      # make it read the existing .gitconfig file and make a backup with time in the name
+      # write to ~/.gitconfig
+      cat >  "$HOME/.gitconfig" <<EOF
+      [user]
+            name = Neal Stanard
+            email = nstanard@gmail.com
+            username = nstanard
+      EOF
+
+      cat >  "$HOME/.ssh/config" <<EOF
+      Host github.com
+            HostName github.com
+            User git
+            AddKeysToAgent yes
+            UseKeychain yes
+            IdentityFile ~/.ssh/id_rsa
+            IdentitiesOnly yes
+      EOF
+
+      }
+ -->
+
 Laptop
 ======
 Laptop is a script to set up a macOS computer for web development, and to keep

@@ -1,10 +1,6 @@
 #!/bin/bash
 
 if [ -z "$CI" ] && no_zsh_frameworks && no_prompt_customizations_in_shell_file; then
-  echo ""
-  read -p "Would you like to customize your prompt to display the current directory and ruby version? [Y/n]: " response
-  response=${response:-y}
-  if [ "$response" = "y" ]; then
     if ! grep -qs "prompt_ruby_info()" "$shell_file"; then
       cat <<EOT >> "$shell_file"
 
@@ -30,7 +26,4 @@ EOT
     # display directories and files in different colors when running ls
     append_to_file "$shell_file" 'export CLICOLOR=1;'
     append_to_file "$shell_file" 'export LSCOLORS=exfxcxdxbxegedabagacad;'
-  else
-    fancy_echo "Skipping prompt customization."
-  fi
 fi
