@@ -23,6 +23,8 @@ alias watch="npm run watch"
 alias start="npm start"
 alias test="npm run test"
 
-nodenv shell 14.15.5
-
 EOF
+
+
+append_to_file "$HOME/.devrc" 'eval "$(nodenv init -)"'
+append_to_file "$HOME/.devrc" 'nodenv shell 14.15.5'
