@@ -23,6 +23,9 @@ alias watch="npm run watch"
 alias start="npm start"
 alias test="npm run test"
 
+# GIT
+alias push="git push origin HEAD"
+
 EOF
 
 
