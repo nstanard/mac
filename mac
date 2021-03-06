@@ -5,107 +5,18 @@ source "./functions"
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-export LAPTOP_REPO="$HOME/mac";
-export SP_REPOS="$HOME/Development/SparkPost";
-export UTILS="$HOME/utils"
-export CONFIGS="/opt/configs"
-export SCRIPTS="$HOME/.scripts";
+export MAC="$HOME/Development/mac";
+export UTILS="$HOME/Development"
 
-fancy_echo "====== Required Info ======"
-echo "GitHub credentials to setup ssh key."
-echo "AWS Accounts for EA/MSYSMC"
-echo "AWS key id and secret key for analyst-ng"
-echo "NPM_TOKEN ready to copy or set on the cli"
-echo "VPN configured and connected (security team will provide configurations)"
-echo "Install System Updates & XCode in the app store"
-echo " - xcode installed: xcode-select --install"
-echo " - sudo xcodebuild -license"
-# echo "$SP_REPOS/accusers-api downloaded and named correctly" # SP APP (2web2ui) SPECIFIC
-
-fancy_echo "====== This Script Will ======"
-# TODO: install fullscreen/tap/aws-rotate-key 
-echo ""
-echo "Install and configure chruby (ruby) Manager"
-echo "Install and configure N (node) Manager"
-echo "Install and configure Java"
-echo "Clone SparkPost Repositories"
-echo "Configure NPM_TOKEN for analyst-ng"
-echo "Configure AWS-ClI for analyst-ng"
-echo "Run a gradle build on analyst-ng"
-echo "Install Homebrew and everything in the Brewfile"
-
-echo ""
-read -p "You good to go? [Y/n]: " response
-response=${response:-y}
-if [ "$response" = "y" ]; then
-
-echo ""
-echo "Creating required folders"
-mkdir -p $SCRIPTS
-mkdir -p $UTILS
-mkdir -p $SP_REPOS
-
-sudo mkdir -p $CONFIGS
-
-sudo chown $USER $CONFIGS
-
-pathmunge "/usr/local/sbin"
-
-bash "$LAPTOP_REPO/analyst.conf/npmtoken"
-bash "$LAPTOP_REPO/scripts/shell"
-bash "$LAPTOP_REPO/scripts/homebrew"
-bash "$LAPTOP_REPO/scripts/ruby"
-bash "$LAPTOP_REPO/analyst.conf/redis-install"
-bash "$LAPTOP_REPO/analyst.conf/jetty-install"
-bash "$LAPTOP_REPO/analyst.conf/flyway-install"
-bash "$LAPTOP_REPO/analyst.conf/hosts-config"
-bash "$LAPTOP_REPO/analyst.conf/analyst-configs"
-bash "$LAPTOP_REPO/scripts/github-ssh.bash"
+# bash "$MAC/scripts/shell"
+# bash "$MAC/scripts/homebrew"
+# bash "$MAC/scripts/ruby"
+# bash "$MAC/scripts/github-ssh.bash"
 
 cp "$LAPTOP_REPO/functions/pathmunge.bash" $SCRIPTS
-cp "$LAPTOP_REPO/functions/npm-publish.bash" $SCRIPTS
 cp "$LAPTOP_REPO/analyst.conf/file-limit.bash" $SCRIPTS
-cp "$LAPTOP_REPO/scripts/gradle.bash" $SCRIPTS
-
-bash "$LAPTOP_REPO/analyst.conf/update-java.bash" profile=$shell_file
 
 bash "$LAPTOP_REPO/analyst.conf/dot-profile.bash" shellfile=$shell_file token=$NPM_TOKEN utils="$UTILS"
-echo "~/.zshrc"
-echo "~/.profile"
+
 append_to_file "$HOME/.zshrc" "source $HOME/.bash-mac-profile"
 append_to_file "$HOME/.profile" "source $HOME/.bash-mac-profile"
-
-bash "$LAPTOP_REPO/analyst.conf/analyst-ng-node-npm"
-bash "$LAPTOP_REPO/clone-repos"
-bash "$LAPTOP_REPO/aws-configure"
-bash "$LAPTOP_REPO/bouncy-castle-copy"
-bash "$LAPTOP_REPO/analyst.conf/gradle-build-analyst-ng.bash" repo=$SP_REPOS
-
-fancy_echo "== ACTION REQUIRED =="
-fancy_echo "Go configure Eclipse! https://confluence.int.messagesystems.com/display/ENG/Install+Eclipse"
-echo -e "  - ${RED}Run flyway commands${NC} - the shortcuts provided in this script are: flyway-boxbe-all && flyway-analyst-all && flyway-boxbe-counts-all"
-echo -e "  - ${RED}ClassPath variables${NC}: GRADLE_HOME = $HOME/.gradle/caches"
-echo -e "  - ${RED}Default VM Arguments${NC}: -Duser.timezone=\"UTC\" -Dmyproject.root=$SP_REPOS/analyst-ng -Xmx2G -noverify -Dfile.encoding=UTF-8"
-echo -e "  - ${RED}Install JRebel${NC}: https://confluence.int.messagesystems.com/display/ENG/Install+JRebel"
-echo -e "  - ${RED}Configure Save Actions${NC}: https://confluence.int.messagesystems.com/display/ENG/Configure+Eclipse+Save+and+Edit+Actions"
-# echo -e "  - ${RED}Install Bouncy Castle${NC}: cd $jetty_dir/lib/ext && wget https://repo1.maven.org/maven2/org/bouncycastle/bcprov-ext-jdk15on/${BOUNCY_CASTLE_VERSION}/bcprov-ext-jdk15on-${BOUNCY_CASTLE_VERSION}.jar"
-echo -e "  - ${RED}Configure Eclipse to Run Jetty${NC}"
-echo -e "    - File > Import > Existing Projects Into Workspace - Navigate to $jetty_dir and import the project."
-echo -e "    - Run > Run Configurations > Right click Java Application > "
-echo -e "      - Name - Something meaningful to you"
-echo -e "      - Project - Associate it with the Jetty Server project"
-echo -e "      - Main class - Set to org.eclipse.jetty.start.Main"
-echo '      - Add the following VM Arguments ${jrebel_args}'
-echo '    - Save the configuration and run the configuration. - Verify that http:\\localhost:8080 returns a 404 error with a blurb about being managed by Jetty.'
-echo -e "  - Potential gradle plugin conflict: Remove Build Ship Plugin: Eclipse -> About Eclipse -> Installation Details > uninstall build ship plugin"
-echo -e "    - Only needed if gradle is conflicting with the plugin resulting in errors"
-echo ""
-echo "Go to http://dev.eds.com:8080/ once you have jetty running!"
-
-fancy_echo "All done! Close your terminal windows and re-open them! (or run \"source $shell_file\")"
-
-fancy_echo "optional steps:"
-echo " - Add a record to the account_whitelabel_domain like {name}.aws.dev.emailanalyst.com for viewing other devs local over VPN."
-echo ""
-
-fi

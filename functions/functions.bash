@@ -1,6 +1,7 @@
 #!/bin/bash
 source "./pathmunge"
 source "./append-to-file"
+source "./npm-publish"
 
 fancy_echo() {
   local fmt="$1"; shift

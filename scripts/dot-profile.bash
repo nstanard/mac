@@ -1,15 +1,5 @@
 #!/bin/bash
 
-export MYSQL_USER='root'
-export MYSQL_PASS=''
-
-mysql_dir=$(find /usr/local/Cellar/mysql@5.6 -mindepth 1 -maxdepth 1 -type d)
-java_dir=$(find /Library/Java/JavaVirtualMachines -mindepth 1 -maxdepth 1 -type d)
-
-# if we had used the brew installs... this is where they would live
-# flyway_dir=$(find /usr/local/Cellar/flyway -mindepth 1 -maxdepth 1 -type d)
-# jetty_dir=$(find /usr/local/Cellar/jetty -mindepth 1 -maxdepth 1 -type d)
-
 for ARGUMENT in "$@"
 do
 
@@ -23,12 +13,6 @@ do
             *)
     esac    
 done
-
-# echo "TOKEN: $token"
-
-redis_dir=$(find $UTILS/redis -mindepth 1 -maxdepth 1 -type d)
-flyway_dir=$(find $UTILS/flyway -mindepth 1 -maxdepth 1 -type d)
-jetty_dir=$(find $UTILS/jetty -mindepth 1 -maxdepth 1 -type d)
 
 echo ""
 read -p "Would you like to configure your shell file? [Y/n]: " response
