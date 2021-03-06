@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export GEM_HOME="$HOME/.gem"; # https://github.com/rbenv/rbenv/issues/1267
+
 . ./functions.sh --source-only
 # shellcheck disable=SC2016
 append_to_file "$HOME/.gemrc" 'gem: --no-document'

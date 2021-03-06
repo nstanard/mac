@@ -44,5 +44,6 @@ else
   echo "in which case, you can ignore these errors."
 fi
 
+# TODO: Check owner of all contenxt of /usr/local (brew prefix) and only do this if it's not equal to whoami
 fancy_echo "Setting you as the owner of -R /usr/local (or whatever the brew prefix is) ..."
 sudo chown -R $(whoami) $(brew --prefix)/*

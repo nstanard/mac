@@ -10,22 +10,22 @@ export devrc="$HOME/.devrc";
 touch $devrc;
 
 export DEV_FOLDER="$HOME/Development";
-mkdir -p $DEV_FOLDER
+mkdir -p $DEV_FOLDER;
 
 export UTILS_FOLDER="$HOME/Development/utils";
-mkdir -p $UTILS_FOLDER
+mkdir -p $UTILS_FOLDER;
 
 export MAC_SETUP_FOLDER="$HOME/Development/mac";
-mkdir -p $MAC_SETUP_FOLDER
+mkdir -p $MAC_SETUP_FOLDER;
 
 # NOTE: 
 # /usr/local/bin is for programs that a normal user may run. 
 # /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
 # By default, a normal user does not have /usr/local/sbin on their path.
-pathmunge "/usr/local/sbin"
+pathmunge "/usr/local/sbin";
 
-bash "$MAC_SETUP_FOLDER/scripts/shell.sh"
+bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh"
+bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 
-bash "$MAC_SETUP_FOLDER/scripts/ruby.sh"
+bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
