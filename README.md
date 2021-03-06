@@ -2,6 +2,8 @@
 <!-- https://github.com/monfresh/laptop -->
 <!-- https://github.com/thoughtbot/laptop -->
 
+<!-- Hosts location: /etc/hosts -->
+
 <!-- TODO:
    - Create a node.js wrapper to pick which parts to run... then execute the bash file passing in args to control which parts run?
 

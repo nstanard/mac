@@ -12,11 +12,18 @@ touch $devrc;
 export DEV_FOLDER="$HOME/Development";
 mkdir -p $DEV_FOLDER;
 
-export UTILS_FOLDER="$HOME/Development/utils";
+export UTILS_FOLDER="$DEV_FOLDER/utils";
 mkdir -p $UTILS_FOLDER;
 
-export MAC_SETUP_FOLDER="$HOME/Development/mac";
+export SCRIPTS="$UTILS_FOLDER/scripts";
+mkdir -p $SCRIPTS;
+
+export MAC_SETUP_FOLDER="$DEV_FOLDER/mac";
 mkdir -p $MAC_SETUP_FOLDER;
+
+# Copy scripts over 
+cp ./scripts/pathmunge.sh $SCRIPTS
+cp ./scripts/filelimit.sh $SCRIPTS
 
 # NOTE: 
 # /usr/local/bin is for programs that a normal user may run. 
@@ -24,8 +31,13 @@ mkdir -p $MAC_SETUP_FOLDER;
 # By default, a normal user does not have /usr/local/sbin on their path.
 pathmunge "/usr/local/sbin";
 
-bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
+# TODO: accept --shell flag to do this conditionally
+# bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+# TODO: accept --homebrew flag to do this conditionally
+# bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 
-bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+# TODO: accept --ruby flag to do this conditionally
+# bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+
+bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
