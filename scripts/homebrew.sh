@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note: Sourced from calling context path, not this files location
+. ./functions.sh --source-only
+
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
     curl -fsS \
@@ -33,7 +36,7 @@ else
 fi
 
 fancy_echo "Installing formulas and casks from the Brewfile ..."
-if brew bundle --file="$LAPTOP_REPO/Brewfile"; then
+if brew bundle --file="$MAC_SETUP_FOLDER/Brewfile"; then
   fancy_echo "All formulas and casks were installed successfully."
 else
   fancy_echo "Some formulas or casks failed to install."
@@ -41,9 +44,10 @@ else
   echo "in which case, you can ignore these errors."
 fi
 
-# TODO: 2web2ui only
-# brew tap denji/nginx
-# brew install denji/nginx/openresty
-
-# mkdir -p /usr/local/include ?
 sudo chown -R $(whoami) $(brew --prefix)/*
+
+# Warning Solution: https://stackoverflow.com/questions/10868133/cant-brew-link-an-unlinked-keg
+# Warning: You have unlinked kegs in your Cellar.
+# Leaving kegs unlinked can lead to build-trouble and cause formulae that depend on
+# those kegs to fail to run properly once built. Run `brew link` on these:
+#   node
