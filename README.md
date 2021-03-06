@@ -6,6 +6,7 @@
 
 <!-- TODO:
    - Create a node.js wrapper to pick which parts to run... then execute the bash file passing in args to control which parts run?
+      - https://opensource.com/article/18/7/node-js-interactive-cli
 
    - Add back:
       alias reload="source ~/.profile"
@@ -48,6 +49,15 @@
       EOF
 
       }
+
+
+
+
+Warning: You have unlinked kegs in your Cellar.
+Leaving kegs unlinked can lead to build-trouble and cause formulae that depend on
+those kegs to fail to run properly once built. Run `brew link` on these:
+  node
+  
  -->
 
 Laptop

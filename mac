@@ -6,6 +6,9 @@
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# TODO: Make a list of prerequisites
+#   - XCode & Devtools
+
 export devrc="$HOME/.devrc";
 touch $devrc;
 
@@ -47,3 +50,4 @@ bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
 
 # Append the devrc to the main shell file to be sourced on shell start
 append_to_file $shell_file "source $HOME/.devrc"
+# TODO: Remove any existing .devrc line from both .zshrc and .profile

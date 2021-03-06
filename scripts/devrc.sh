@@ -18,6 +18,10 @@ alias watch="npm run watch";
 alias start="npm start";
 alias test="npm run test";
 
+alias fetch="git fetch --all";
 alias pull="git pull";
+
+# https://stackoverflow.com/questions/14031970/git-push-current-branch-shortcut
+alias push="git push origin HEAD";
 
 EOF
