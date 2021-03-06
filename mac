@@ -6,7 +6,7 @@
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# TODO: Make a list of prerequisites
+# TODO: Make a list of prerequisites and dont continue if they aren't ready
 #   - XCode & Devtools
 
 export devrc="$HOME/.devrc";
@@ -35,15 +35,16 @@ export shell_file=$(get_shell_file);
 # /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
 # By default, a normal user does not have /usr/local/sbin on their path.
 pathmunge "/usr/local/sbin";
+pathmunge "/usr/local/bin/node";
 
 # TODO: accept --shell flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
 # TODO: accept --homebrew flag to do this conditionally
-bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+# bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 
 # TODO: accept --ruby flag to do this conditionally
-bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+# bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 
 # TODO: accept --devrc flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";

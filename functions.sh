@@ -138,3 +138,12 @@ check_processor_and_set_chruby_source_strings() {
     auto_source_string="source /usr/local/share/chruby/auto.sh"
   fi
 }
+
+parse_git_branch() {
+  ref=$(git status 2> /dev/null | grep -E "(On branch|detached) .*$" | grep -oE "\S*$") || return
+  echo "["${ref#refs/heads/}"] "
+}
+
+reset_zshrc() {
+  cat ~/.oh-my-zsh/templates/zshrc.zsh-template >> ~/.zshrc
+}

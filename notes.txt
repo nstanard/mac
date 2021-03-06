@@ -1,3 +1,6 @@
+Login Shell setting:
+System Preferences -> Users & Groups -> Click the lock -> Right click your user -> Advanced Options
+
 # SCRIPT: bash "$MAC_SETUP_FOLDER/scripts/shell.sh"
 
 # Failed:

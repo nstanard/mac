@@ -5,6 +5,14 @@
 <!-- Hosts location: /etc/hosts -->
 
 <!-- TODO:
+
+https://ostechnix.com/list-useful-bash-keyboard-shortcuts/
+https://github.com/fliptheweb/bash-shortcuts-cheat-sheet
+
+https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+https://robertharder.wordpress.com/2011/03/17/bash-profile-sharing-and-useful-scripts/
+https://dev.to/aviaryan/some-helpful-bash-scripts-i-use-daily-40bd
+
    - Create a node.js wrapper to pick which parts to run... then execute the bash file passing in args to control which parts run?
       - https://opensource.com/article/18/7/node-js-interactive-cli
 
@@ -57,7 +65,7 @@ Warning: You have unlinked kegs in your Cellar.
 Leaving kegs unlinked can lead to build-trouble and cause formulae that depend on
 those kegs to fail to run properly once built. Run `brew link` on these:
   node
-  
+
  -->
 
 Laptop
