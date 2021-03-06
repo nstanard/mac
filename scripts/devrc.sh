@@ -8,6 +8,9 @@ source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 
+# bash shortcut cheatsheet open with safari
+alias bs="open -a /Applications/Safari.app https://blog.ssdnodes.com/blog/cheatsheet-bash-shortcuts/"
+
 alias cll='ls -lahF'
 
 alias ls='exa -G'
