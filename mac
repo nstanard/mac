@@ -49,7 +49,5 @@ bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 # TODO: accept --devrc flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
 
-append_to_file "$HOME/.devrc" "eval \"$(nodenv init -)\""
-
 # Append the devrc to the main shell file to be sourced on shell start
 append_to_file $shell_file "source $HOME/.devrc"
