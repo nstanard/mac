@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://linuxize.com/post/bash-functions/
+
 pathmunge () {
     if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)"; then
         if [ "$2" = "after" ] ; then
@@ -36,6 +38,23 @@ brew_is_installed() {
 
 tap_is_installed() {
   brew tap | grep -Fqx "$1"
+}
+
+get_shell_file() {
+  case "$SHELL" in
+    */zsh )
+      local myres="$HOME/.zshrc";
+      ;;
+
+    */bash )
+      local myres="$HOME/.profile";
+      ;;
+
+    *)
+      ;;
+  esac
+
+  echo $myres;
 }
 
 create_zshrc_and_set_it_as_shell_file() {

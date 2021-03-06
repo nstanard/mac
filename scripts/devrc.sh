@@ -1,8 +1,8 @@
 #!/bin/bash
 
 cat > $devrc <<-EOF
-source $SCRIPTS/pathmunge.bash
-source $SCRIPTS/filelimit.bash
+source $SCRIPTS/pathmunge.sh
+source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 

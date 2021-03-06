@@ -25,6 +25,8 @@ mkdir -p $MAC_SETUP_FOLDER;
 cp ./scripts/pathmunge.sh $SCRIPTS
 cp ./scripts/filelimit.sh $SCRIPTS
 
+export shell_file=$(get_shell_file);
+
 # NOTE: 
 # /usr/local/bin is for programs that a normal user may run. 
 # /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
@@ -41,3 +43,5 @@ pathmunge "/usr/local/sbin";
 # bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 
 bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
+
+append_to_file $shell_file "source $HOME/.devrc"
