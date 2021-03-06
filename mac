@@ -24,7 +24,7 @@ pathmunge "/usr/local/sbin"
 
 # bash "$MAC_SETUP_FOLDER/scripts/shell.bash"
 
-# bash "$MAC_SETUP_FOLDER/scripts/homebrew"
+bash "$MAC_SETUP_FOLDER/scripts/homebrew"
 
 # bash "$MAC_SETUP_FOLDER/scripts/ruby"
 
