@@ -5,18 +5,6 @@ source "./functions"
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-export MAC="$HOME/Development/mac";
-export UTILS="$HOME/Development"
-
-# bash "$MAC/scripts/shell"
-# bash "$MAC/scripts/homebrew"
-# bash "$MAC/scripts/ruby"
-# bash "$MAC/scripts/github-ssh.bash"
-
-cp "$LAPTOP_REPO/functions/pathmunge.bash" $SCRIPTS
-cp "$LAPTOP_REPO/analyst.conf/file-limit.bash" $SCRIPTS
-
-bash "$LAPTOP_REPO/analyst.conf/dot-profile.bash" shellfile=$shell_file token=$NPM_TOKEN utils="$UTILS"
-
-append_to_file "$HOME/.zshrc" "source $HOME/.bash-mac-profile"
-append_to_file "$HOME/.profile" "source $HOME/.bash-mac-profile"
+export DEV_FOLDER="$HOME/Development";
+export MAC_FOLDER="$HOME/Development/mac";
+export UTILS_FOLDER="$HOME/Development"
