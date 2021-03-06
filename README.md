@@ -1,3 +1,7 @@
+<!-- https://gist.github.com/millermedeiros/6615994 -->
+<!-- https://github.com/monfresh/laptop -->
+<!-- https://github.com/thoughtbot/laptop -->
+
 Laptop
 ======
 Laptop is a script to set up a macOS computer for web development, and to keep
