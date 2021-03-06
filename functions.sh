@@ -91,6 +91,18 @@ change_shell_to_zsh() {
   echo "The instructions for changing shells manually are available in the README."
 }
 
+switch_to_ruby() {
+  # shellcheck disable=SC1091
+  if apple_m1 && ! rosetta; then
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+  else
+    source /usr/local/share/chruby/chruby.sh
+  fi
+
+  local ruby_version="$1"
+  chruby "ruby-$ruby_version"
+}
+
 gem_install_or_update() {
   if gem list "$1" | grep "^$1 ("; then
     fancy_echo "Updating %s ..." "$1"

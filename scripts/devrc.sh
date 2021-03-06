@@ -87,6 +87,13 @@ alias gsts='git stash save'
 # Git log find by commit message
 function glf() { git log --all --grep="$1"; }
 
+
+## arrow up
+"\e[A":history-search-backward
+
+## arrow down
+"\e[B":history-search-forward
+
 EOF
 
 

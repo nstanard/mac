@@ -1,8 +1,11 @@
 #!/bin/bash
 
+. ./functions.sh --source-only
+
+# What the heck is wrong with my ruby install? do I need to: 
+# sudo chown -R $(whoami) /Library/Ruby/Gems/*
 export GEM_HOME="$HOME/.gem"; # https://github.com/rbenv/rbenv/issues/1267
 
-. ./functions.sh --source-only
 # shellcheck disable=SC2016
 append_to_file "$HOME/.gemrc" 'gem: --no-document'
 

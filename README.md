@@ -4,6 +4,11 @@
 
 <!-- Hosts location: /etc/hosts -->
 
+<!-- FONTS: -->
+<!-- https://medium.datadriveninvestor.com/making-your-code-editor-feel-like-home-customizing-vs-code-b858d4938cb -->
+<!-- https://rubjo.github.io/victor-mono/ -->
+<!-- https://www.typography.com/blog/introducing-operator -->
+
 <!-- TODO:
 
    Explore other peoples shortcuts and scripts:

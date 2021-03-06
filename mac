@@ -37,6 +37,9 @@ export shell_file=$(get_shell_file);
 pathmunge "/usr/local/sbin";
 pathmunge "/usr/local/bin/node";
 
+# TODO: if no flags are set, do them all
+# TODO: if flags are set, only run the flags passed in
+
 # TODO: accept --shell flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
@@ -51,3 +54,6 @@ bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
 
 # Append the devrc to the main shell file to be sourced on shell start
 append_to_file $shell_file "source $HOME/.devrc"
+
+# https://rubjo.github.io/victor-mono/
+brew tap homebrew/cask-fonts
