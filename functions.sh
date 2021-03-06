@@ -151,6 +151,37 @@ check_processor_and_set_chruby_source_strings() {
   fi
 }
 
+configure_shell_file_for_homebrew_on_m1() {
+  if [[ $SHELL == *fish ]]; then
+    # shellcheck disable=SC2016
+    append_to_file "$shell_file" 'status --is-interactive; and eval (/opt/homebrew/bin/brew shellenv)'
+    fish -c 'eval (/opt/homebrew/bin/brew shellenv)'
+  else
+    # shellcheck disable=SC2016
+    append_to_file "$HOME/.zprofile" 'eval $(/opt/homebrew/bin/brew shellenv)'
+    eval $(/opt/homebrew/bin/brew shellenv)
+  fi
+}
+
+configure_shell_file_for_chruby() {
+  if [[ ! $SHELL == *fish ]]; then
+    append_to_file "$shell_file" "$chruby_source_string"
+    append_to_file "$shell_file" "$auto_source_string"
+  fi
+
+  local ruby_version="$1"
+  append_to_file "$shell_file" "chruby ruby-$ruby_version"
+}
+
+configure_shell_file_for_nodenv() {
+  if [[ $SHELL == *fish ]]; then
+    append_to_file "$shell_file" 'status --is-interactive; and source (nodenv init -|psub)'
+  else
+    # shellcheck disable=SC2016
+    append_to_file "$shell_file" 'eval "$(nodenv init -)"'
+  fi
+}
+
 parse_git_branch() {
   ref=$(git status 2> /dev/null | grep -E "(On branch|detached) .*$" | grep -oE "\S*$") || return
   echo "["${ref#refs/heads/}"] "
