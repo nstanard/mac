@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./functions.sh --source-only
+
 cat > $devrc <<-EOF
 source $SCRIPTS/pathmunge.sh
 source $SCRIPTS/filelimit.sh
@@ -20,5 +22,7 @@ alias code="open -a 'Visual Studio Code.app'"
 alias watch="npm run watch"
 alias start="npm start"
 alias test="npm run test"
+
+nodenv shell 14.15.5
 
 EOF
