@@ -11,6 +11,12 @@ pathmunge "/usr/local/sbin"
 # bash shortcut cheatsheet open with safari
 alias bs="open -a /Applications/Safari.app https://blog.ssdnodes.com/blog/cheatsheet-bash-shortcuts/"
 
+alias re='sudo !!'
+
+alias h='history'
+
+alias c='clear'
+
 alias cll='ls -lahF'
 
 alias ls='exa -G'
