@@ -60,14 +60,6 @@
 
       }
 
-
-
-
-Warning: You have unlinked kegs in your Cellar.
-Leaving kegs unlinked can lead to build-trouble and cause formulae that depend on
-those kegs to fail to run properly once built. Run `brew link` on these:
-  node
-
  -->
 
 Laptop

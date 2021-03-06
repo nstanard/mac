@@ -41,10 +41,10 @@ pathmunge "/usr/local/bin/node";
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
 # TODO: accept --homebrew flag to do this conditionally
-# bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 
 # TODO: accept --ruby flag to do this conditionally
-# bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 
 # TODO: accept --devrc flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
