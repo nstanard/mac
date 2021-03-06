@@ -6,12 +6,14 @@
 
 <!-- TODO:
 
-https://ostechnix.com/list-useful-bash-keyboard-shortcuts/
-https://github.com/fliptheweb/bash-shortcuts-cheat-sheet
+   Explore other peoples shortcuts and scripts:
+      https://gist.github.com/kjbrum/77b7af04191267b053e9
+      https://ostechnix.com/list-useful-bash-keyboard-shortcuts/
+      https://github.com/fliptheweb/bash-shortcuts-cheat-sheet
 
-https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
-https://robertharder.wordpress.com/2011/03/17/bash-profile-sharing-and-useful-scripts/
-https://dev.to/aviaryan/some-helpful-bash-scripts-i-use-daily-40bd
+      https://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+      https://robertharder.wordpress.com/2011/03/17/bash-profile-sharing-and-useful-scripts/
+      https://dev.to/aviaryan/some-helpful-bash-scripts-i-use-daily-40bd
 
    - Create a node.js wrapper to pick which parts to run... then execute the bash file passing in args to control which parts run?
       - https://opensource.com/article/18/7/node-js-interactive-cli
