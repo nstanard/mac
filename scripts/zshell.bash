@@ -1,7 +1,6 @@
 #!/bin/bash
 
 if [ -z "$CI" ] && no_zsh_frameworks && no_prompt_customizations_in_shell_file; then
-
   echo ""
   read -p "Would you like to customize your prompt to display the current directory and ruby version? [Y/n]: " response
   response=${response:-y}

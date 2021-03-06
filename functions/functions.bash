@@ -1,7 +1,27 @@
 #!/bin/bash
-source "./pathmunge"
-source "./append-to-file"
-source "./npm-publish"
+
+pathmunge () {
+    if ! echo "$PATH" | grep -Eq "(^|:)$1($|:)"; then
+        if [ "$2" = "after" ] ; then
+            PATH="$PATH:$1"
+        else
+            PATH="$1:$PATH"
+        fi
+    fi
+}
+
+append_to_file() {
+  local file="$1"
+  local text="$2"
+
+  if ! grep -qs "^$text$" "$file"; then
+    printf "\\n%s\\n" "$text" >> "$file"
+  fi
+}
+
+npmp () {
+    pushd "$1" && npm publish && popd && clear && ls
+}
 
 fancy_echo() {
   local fmt="$1"; shift

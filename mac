@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source "./functions"
+source "./functions/functions.bash"
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
@@ -8,5 +8,3 @@ NC='\033[0m' # No Color
 export DEV_FOLDER="$HOME/Development";
 export MAC_FOLDER="$HOME/Development/mac";
 export UTILS_FOLDER="$HOME/Development/utils"
-
-
