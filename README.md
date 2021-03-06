@@ -2,6 +2,9 @@
 <!-- https://github.com/monfresh/laptop -->
 <!-- https://github.com/thoughtbot/laptop -->
 
+<!-- Note:
+  - make sure ./mac is executable (chmod +x mac)
+ -->
 Laptop
 ======
 Laptop is a script to set up a macOS computer for web development, and to keep

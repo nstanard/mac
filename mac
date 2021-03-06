@@ -1,10 +1,30 @@
 #!/bin/bash
 
-source "./functions/functions.bash"
+# https://stackoverflow.com/questions/12815774/importing-functions-from-a-shell-script
+. ./functions.bash --source-only
+
+# Test functions from the functions file
+# touch ./wat
+# append_to_file ./wat "testing"
 
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 export DEV_FOLDER="$HOME/Development";
-export MAC_FOLDER="$HOME/Development/mac";
-export UTILS_FOLDER="$HOME/Development/utils"
+mkdir -p $DEV_FOLDER
+
+export UTILS_FOLDER="$HOME/Development/utils";
+mkdir -p $UTILS_FOLDER
+
+export MAC_SETUP_FOLDER="$HOME/Development/mac";
+mkdir -p $MAC_SETUP_FOLDER
+
+# /usr/local/bin is for programs that a normal user may run. /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. By default, a normal user does not have /usr/local/sbin on their path.
+pathmunge "/usr/local/sbin"
+
+# bash "$MAC_SETUP_FOLDER/scripts/shell.bash"
+
+# bash "$MAC_SETUP_FOLDER/scripts/homebrew"
+
+# bash "$MAC_SETUP_FOLDER/scripts/ruby"
+
