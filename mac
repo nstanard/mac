@@ -7,4 +7,6 @@ NC='\033[0m' # No Color
 
 export DEV_FOLDER="$HOME/Development";
 export MAC_FOLDER="$HOME/Development/mac";
-export UTILS_FOLDER="$HOME/Development"
+export UTILS_FOLDER="$HOME/Development/utils"
+
+
