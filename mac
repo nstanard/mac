@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# https://stackoverflow.com/questions/12815774/importing-functions-from-a-shell-script
+. ./functions.sh --source-only
+
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# TODO: Make a list of prerequisites and dont continue if they aren't ready
+#   - XCode & Devtools
+
+export devrc="$HOME/.devrc";
+touch $devrc;
+
+export DEV_FOLDER="$HOME/Development";
+mkdir -p $DEV_FOLDER;
+
+export UTILS_FOLDER="$DEV_FOLDER/utils";
+mkdir -p $UTILS_FOLDER;
+
+export SCRIPTS="$UTILS_FOLDER/scripts";
+mkdir -p $SCRIPTS;
+
+export MAC_SETUP_FOLDER="$DEV_FOLDER/mac";
+mkdir -p $MAC_SETUP_FOLDER;
+
+# Copy scripts over 
+cp ./scripts/pathmunge.sh $SCRIPTS
+cp ./scripts/filelimit.sh $SCRIPTS
+
+export shell_file=$(get_shell_file);
+
+# NOTE: 
+# /usr/local/bin is for programs that a normal user may run. 
+# /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
+# By default, a normal user does not have /usr/local/sbin on their path.
+pathmunge "/usr/local/sbin";
+pathmunge "/usr/local/bin/node";
+
+# TODO: if no flags are set, do them all
+# TODO: if flags are set, only run the flags passed in
+
+# TODO: accept --shell flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
+
+# TODO: accept --homebrew flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+
+# TODO: accept --ruby flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+
+# TODO: accept --devrc flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
+
+# Append the devrc to the main shell file to be sourced on shell start
+append_to_file $shell_file "source $HOME/.devrc"
+
+# https://rubjo.github.io/victor-mono/
+brew tap homebrew/cask-fonts
+
+# https://github.com/powerline/fonts
+sudo apt-get install fonts-powerline
+# https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
+
+# links docker application to /usr/local/bin/docker so cli has it available
+ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
+# NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI

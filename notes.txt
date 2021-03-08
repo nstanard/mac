@@ -1,0 +1,39 @@
+
+Git Config Stuff:
+    fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*
+    pushurl = do_not_push
+
+    ls .git/refs/remotes
+    git fetch -p
+
+Login Shell setting:
+System Preferences -> Users & Groups -> Click the lock -> Right click your user -> Advanced Options
+
+# SCRIPT: bash "$MAC_SETUP_FOLDER/scripts/shell.sh"
+
+# Failed:
+# append_to_file "$shell_file" 'export PATH="$HOME/.bin:$PATH"'
+
+
+# SCRIPT: bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh"
+
+# If you already installed node / npm...
+# https://stackoverflow.com/questions/11177954/how-do-i-completely-uninstall-node-js-and-reinstall-from-beginning-mac-os-x
+# https://stackoverflow.com/questions/10868133/cant-brew-link-an-unlinked-keg
+
+# NOTES!
+# icu4c is keg-only, which means it was not symlinked into /usr/local,
+# because macOS provides libicucore.dylib (but nothing else).
+
+# If you need to have icu4c first in your PATH, run:
+#   echo 'export PATH="/usr/local/opt/icu4c/bin:$PATH"' >> ~/.zshrc
+#   echo 'export PATH="/usr/local/opt/icu4c/sbin:$PATH"' >> ~/.zshrc
+
+# For compilers to find icu4c you may need to set:
+#   export LDFLAGS="-L/usr/local/opt/icu4c/lib"
+#   export CPPFLAGS="-I/usr/local/opt/icu4c/include"
+
+# For pkg-config to find icu4c you may need to set:
+#   export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig"
+
+
