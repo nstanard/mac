@@ -13,20 +13,6 @@ distinguish directories from files when running `ls` by displaying directories
 in a different color. Below is a screenshot showing what the colors look like
 when using the default Terminal white background, the Solarized Dark theme, and the Solarized Light theme.
 
-If you want to use the [Solarized](http://ethanschoonover.com/solarized)
-themes, run the following commands in your Terminal:
-```bash
-cd ~
-
-curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Dark.terminal
-
-curl --remote-name https://raw.githubusercontent.com/tomislav/osx-terminal.app-colors-solarized/master/Solarized%20Light.terminal
-
-open Solarized%20Dark.terminal
-
-open Solarized%20Light.terminal
-```
-
 This will add the Solarized themes to your Terminal's Profiles, and if you want to set one of them as the default, go to your Terminal's Preferences,
 click on the Settings tab, scroll down to the Solarized Profile, click on it,
 then click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal), it will use the Solarized theme.
