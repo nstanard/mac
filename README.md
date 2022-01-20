@@ -13,10 +13,6 @@ distinguish directories from files when running `ls` by displaying directories
 in a different color. Below is a screenshot showing what the colors look like
 when using the default Terminal white background, the Solarized Dark theme, and the Solarized Light theme.
 
-This will add the Solarized themes to your Terminal's Profiles, and if you want to set one of them as the default, go to your Terminal's Preferences,
-click on the Settings tab, scroll down to the Solarized Profile, click on it,
-then click the Default button. When you open a new window or tab (or if you quit and relaunch Terminal), it will use the Solarized theme.
-
 If you want to try out different prompt colors other than orange and green,
 open your `.zshrc` or `.bash_profile` in Sublime Text:
 
