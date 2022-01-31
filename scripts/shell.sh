@@ -2,13 +2,6 @@
 
 . ./functions.sh --source-only
 
-# All Bash Profiles on my machine...
-# ~/.zshrc
-# ~/.bashrc
-# ~/.profile
-# ~/.bash_profile
-# https://medium.com/@youngstone89/unix-introduction-bash-startup-files-loading-order-562543ac12e9
-
 # shellcheck disable=SC2154
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
