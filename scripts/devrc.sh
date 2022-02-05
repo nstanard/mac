@@ -20,7 +20,7 @@ alias bs="open -a /Applications/Google\ Chrome.app https://devhints.io/bash"
 alias commands="grep -in --color -e '^alias\s+*' ~/.devrc | sed 's/alias //' | grep --color -e ':[a-z][a-z0-9]*'"
 
 # keep mac alive for a certain time
-alias nosleep=caffeinate -t 360000
+alias nosleep=caffeinate -distu 360000
 
 # count lines of code quickly
 alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l"
