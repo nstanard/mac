@@ -29,7 +29,7 @@ alias c='clear'
 alias ls='exa -lh --git --modified --icons'
 alias lss='ls -lahF'
 
-alias reload="source ~/.devrc"
+alias reload="unalias -a && source ~/.devrc"
 
 alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
