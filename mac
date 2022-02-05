@@ -28,8 +28,9 @@ export LAST_RUN_FILE="$MAC_SETUP_FOLDER/.last"
 export INIT=0;
 INIT_FILE="$MAC_SETUP_FOLDER/.init"
 if test -f "$INIT_FILE"; then
-    touch $INIT_FILE;
     INIT=1;
+else
+    touch $INIT_FILE;
 fi
 
 # Copy scripts over 
@@ -68,23 +69,10 @@ brew tap homebrew/cask-fonts
 # sudo apt-get install fonts-powerline
 # https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
 
-
-if [ ! -e "$file" ]; then 
-    # TODO: FIX, DOESN'T WORK RIGHT NOW - IF FILE EXISTS... SO CHECK
-    # links docker application to /usr/local/bin/docker so cli has it available
-    # NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI
-    # ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
-
-    # Create the .init file to prevent some things from happening the next time this runs.
-    touch "$FILE";
-fi
-
 # Write out OS last run data
-
 # 1.
 # cat > $LAST_RUN_FILE <<-EOF
 # $(sw_vers)
 # EOF
-
 # 2. 
 echo $(sw_vers) > $LAST_RUN_FILE;
