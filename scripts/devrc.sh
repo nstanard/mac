@@ -9,8 +9,7 @@ source $SCRIPTS/filelimit.sh
 pathmunge "/usr/local/sbin"
 
 # open my repo list in the browser
-alias repols="open -a /Applications/Firefox.app https://github.com/stars/nstanard/lists/repositories/"
-# alias repof="open -a /Applications/Firefox.app https://github.com/stars/nstanard/lists/repositories/"
+alias repols="open -a /Applications/Safari.app https://github.com/stars/nstanard/lists/repositories/"
 
 # bash shortcut cheatsheet open with safari
 alias bs="open -a /Applications/Safari.app https://devhints.io/bash"
