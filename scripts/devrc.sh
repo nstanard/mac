@@ -98,7 +98,7 @@ function glf() { git log --all --grep="$1"; }
 
 export SSH_SECRET_PATH="~/.ssh/gh";
 alias sagegen="ssh-keygen -t ed25519 -f $SSH_SECRET_PATH -C \"nstanard@gmail.com\""
-alias sageeval="eval \"$(ssh-agent -s)\""
+alias sageeval="eval \"\$(ssh-agent -s)\""
 alias sageauth="ssh-add -K $SSH_SECRET_PATH"
 alias sagecopy="pbcopy < $SSH_SECRET_PATH.pub"
 
@@ -112,14 +112,13 @@ fi
 alias di='docker images'
 alias adi='docker images -a'
 
+# NodeJS
+eval \$(nodenv init -)
+nodenv shell 14.15.5
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi
+# The next line enables shell command completion for gcloud.
+if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
 EOF
 
-append_to_file "$HOME/.devrc" '# NodeJS'
-append_to_file "$HOME/.devrc" 'eval "$(nodenv init -)"'
-append_to_file "$HOME/.devrc" 'nodenv shell 14.15.5'
-
-# FAILING right now
-# append_to_file "$HOME/.devrc" '# The next line updates PATH for the Google Cloud SDK.'
-# append_to_file "$HOME/.devrc" 'if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi'
-# append_to_file "$HOME/.devrc" '# The next line enables shell command completion for gcloud.'
-# append_to_file "$HOME/.devrc" 'if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi'
