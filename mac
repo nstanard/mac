@@ -15,7 +15,7 @@ touch $devrc;
 export DEV_FOLDER="$HOME/Development";
 mkdir -p $DEV_FOLDER;
 
-export UTILS_FOLDER="$DEV_FOLDER/utils";
+export UTILS_FOLDER="$DEV_FOLDER/_utils";
 mkdir -p $UTILS_FOLDER;
 
 export SCRIPTS="$UTILS_FOLDER/scripts";
