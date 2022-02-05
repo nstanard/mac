@@ -26,8 +26,8 @@ alias h='history'
 
 alias c='clear'
 
-alias cll='ls -lahF'
 alias ls='exa -lh --git --modified --icons'
+alias lss='ls -lahF'
 
 alias reload="source ~/.devrc"
 
