@@ -101,6 +101,8 @@ alias sagegen="ssh-keygen -t ed25519 -f $SSH_SECRET_PATH -C \"nstanard@gmail.com
 alias sageeval="eval \"\$(ssh-agent -s)\""
 alias sageauth="ssh-add -K $SSH_SECRET_PATH"
 alias sagecopy="pbcopy < $SSH_SECRET_PATH.pub"
+alias sagelist="ssh-add -l"
+alias sageclean="ssh-add -D"
 
 if [[ $- == *i* ]]
 then
