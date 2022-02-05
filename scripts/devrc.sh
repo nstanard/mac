@@ -8,8 +8,12 @@ source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 
+# open my repo list in the browser
+alias repols="open -a /Applications/Firefox.app https://github.com/stars/nstanard/lists/repositories/"
+# alias repof="open -a /Applications/Firefox.app https://github.com/stars/nstanard/lists/repositories/"
+
 # bash shortcut cheatsheet open with safari
-alias bs="open -a /Applications/Safari.app https://blog.ssdnodes.com/blog/cheatsheet-bash-shortcuts/"
+alias bs="open -a /Applications/Safari.app https://devhints.io/bash"
 
 # list aliases
 alias commands="grep -in --color -e '^alias\s+*' ~/.devrc | sed 's/alias //' | grep --color -e ':[a-z][a-z0-9]*'"
@@ -113,7 +117,8 @@ append_to_file "$HOME/.devrc" '# NodeJS'
 append_to_file "$HOME/.devrc" 'eval "$(nodenv init -)"'
 append_to_file "$HOME/.devrc" 'nodenv shell 14.15.5'
 
-append_to_file "$HOME/.devrc" '# The next line updates PATH for the Google Cloud SDK.'
-append_to_file "$HOME/.devrc" 'if [ -f "$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc" ]; then . "$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc"; fi'
-append_to_file "$HOME/.devrc" '# The next line enables shell command completion for gcloud.'
-append_to_file "$HOME/.devrc" 'if [ -f "$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc" ]; then . "$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc"; fi'
+# FAILING right now
+# append_to_file "$HOME/.devrc" '# The next line updates PATH for the Google Cloud SDK.'
+# append_to_file "$HOME/.devrc" 'if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi'
+# append_to_file "$HOME/.devrc" '# The next line enables shell command completion for gcloud.'
+# append_to_file "$HOME/.devrc" 'if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi'

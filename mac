@@ -3,11 +3,10 @@
 # https://stackoverflow.com/questions/12815774/importing-functions-from-a-shell-script
 . ./functions.sh --source-only
 
+SKIP_RUBY=1;
+
 export RED='\033[0;31m'
 export NC='\033[0m' # No Color
-
-# TODO: Make a list of prerequisites and dont continue if they aren't ready
-#   - XCode & Devtools
 
 export devrc="$HOME/.devrc";
 touch $devrc;
@@ -24,9 +23,12 @@ mkdir -p $SCRIPTS;
 export MAC_SETUP_FOLDER="$DEV_FOLDER/mac";
 mkdir -p $MAC_SETUP_FOLDER;
 
+export LAST_RUN_FILE="$MAC_SETUP_FOLDER/.last"
+
 export INIT=0;
-FILE="$MAC_SETUP_FOLDER/.init"
-if test -f "$FILE"; then
+INIT_FILE="$MAC_SETUP_FOLDER/.init"
+if test -f "$INIT_FILE"; then
+    touch $INIT_FILE;
     INIT=1;
 fi
 
@@ -37,10 +39,10 @@ cp ./scripts/filelimit.sh $SCRIPTS
 export shell_file=$(get_shell_file);
 
 # NOTE: 
-# /usr/local/bin is for programs that a normal user may run. 
-# /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
 # By default, a normal user does not have /usr/local/sbin on their path.
+# /usr/local/bin is for programs that a normal user may run. 
 pathmunge "/usr/local/sbin";
+# /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
 pathmunge "/usr/local/bin/node";
 
 # TODO: accept --shell flag to do this conditionally
@@ -66,10 +68,23 @@ brew tap homebrew/cask-fonts
 # sudo apt-get install fonts-powerline
 # https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
 
-# links docker application to /usr/local/bin/docker so cli has it available
-ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
-# NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI
 
 if [ ! -e "$file" ]; then 
+    # TODO: FIX, DOESN'T WORK RIGHT NOW - IF FILE EXISTS... SO CHECK
+    # links docker application to /usr/local/bin/docker so cli has it available
+    # NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI
+    # ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
+
+    # Create the .init file to prevent some things from happening the next time this runs.
     touch "$FILE";
 fi
+
+# Write out OS last run data
+
+# 1.
+# cat > $LAST_RUN_FILE <<-EOF
+# $(sw_vers)
+# EOF
+
+# 2. 
+echo $(sw_vers) > $LAST_RUN_FILE;
