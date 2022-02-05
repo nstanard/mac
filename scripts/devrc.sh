@@ -8,6 +8,8 @@ source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 
+alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/"
+
 # my main repo list shortcut
 alias repols="open -a /Applications/Google\ Chrome.app https://github.com/stars/nstanard/lists/repositories/"
 
