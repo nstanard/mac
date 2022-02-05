@@ -107,18 +107,13 @@ fi
 alias di='docker images'
 alias adi='docker images -a'
 
-# NODEJS
-
-eval "$(nodenv init -)"
-nodenv shell 14.15.5
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc' ]; then . '$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc' ]; then . '$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc'; fi
-
 EOF
 
+append_to_file "$HOME/.devrc" '# NodeJS'
 append_to_file "$HOME/.devrc" 'eval "$(nodenv init -)"'
 append_to_file "$HOME/.devrc" 'nodenv shell 14.15.5'
+
+append_to_file "$HOME/.devrc" '# The next line updates PATH for the Google Cloud SDK.'
+append_to_file "$HOME/.devrc" 'if [ -f "$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc" ]; then . "$UTILS_FOLDER/google-cloud-sdk/path.zsh.inc"; fi'
+append_to_file "$HOME/.devrc" '# The next line enables shell command completion for gcloud.'
+append_to_file "$HOME/.devrc" 'if [ -f "$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc" ]; then . "$UTILS_FOLDER/google-cloud-sdk/completion.zsh.inc"; fi'
