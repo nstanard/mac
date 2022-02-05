@@ -8,11 +8,11 @@ source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 
-# open my repo list in the browser
-alias repols="open -a /Applications/Safari.app https://github.com/stars/nstanard/lists/repositories/"
+# my main repo list shortcut
+alias repols="open -a /Applications/Google\ Chrome.app https://github.com/stars/nstanard/lists/repositories/"
 
-# bash shortcut cheatsheet open with safari
-alias bs="open -a /Applications/Safari.app https://devhints.io/bash"
+# bash cheat sheet shortcut
+alias bs="open -a /Applications/Google\ Chrome.app https://devhints.io/bash"
 
 # list aliases
 alias commands="grep -in --color -e '^alias\s+*' ~/.devrc | sed 's/alias //' | grep --color -e ':[a-z][a-z0-9]*'"
