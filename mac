@@ -43,35 +43,32 @@ export shell_file=$(get_shell_file);
 pathmunge "/usr/local/sbin";
 pathmunge "/usr/local/bin/node";
 
-# TODO: if no flags are set, do them all
-# TODO: if flags are set, only run the flags passed in
-
 # TODO: accept --shell flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
 # TODO: accept --homebrew flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 
-# # TODO: accept --ruby flag to do this conditionally
-# bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+# TODO: accept --ruby flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 
-# # TODO: accept --devrc flag to do this conditionally
-# bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
+# TODO: accept --devrc flag to do this conditionally
+bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
 
-# # Append the devrc to the main shell file to be sourced on shell start
-# append_to_file $shell_file "source $HOME/.devrc"
+# Append the devrc to the main shell file to be sourced on shell start
+append_to_file $shell_file "source $HOME/.devrc"
 
-# # https://rubjo.github.io/victor-mono/
-# brew tap homebrew/cask-fonts
+# https://rubjo.github.io/victor-mono/
+brew tap homebrew/cask-fonts
 
-# # https://github.com/powerline/fonts
-# # Doesn't work on zshell?
-# # sudo apt-get install fonts-powerline
-# # https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
+# https://github.com/powerline/fonts
+# Doesn't work on zshell?
+# sudo apt-get install fonts-powerline
+# https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
 
-# # links docker application to /usr/local/bin/docker so cli has it available
-# ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
-# # NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI
+# links docker application to /usr/local/bin/docker so cli has it available
+ln -s /Applications/Docker.app/Contents/Resources/bin /usr/local/bin/docker
+# NOTE: You need to open Docker and let it install stuff and provide a password before you can use it on the CLI
 
 if [ ! -e "$file" ]; then 
     touch "$FILE";
