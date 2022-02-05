@@ -38,6 +38,7 @@ alias code="open -a 'Visual Studio Code.app'"
 alias watch="npm run watch"
 alias start="npm start"
 alias test="npm run test"
+alias lint="npm run lint"
 
 # GIT
 # ----------------------
@@ -86,6 +87,16 @@ alias gsts='git stash save'
 # Git log find by commit message
 function glf() { git log --all --grep="$1"; }
 
+# ----------------------
+# SSH Agent Shortcuts (Sage)
+# ----------------------
+
+export SSH_SECRET_PATH="~/.ssh/gh";
+alias sagegen="ssh-keygen -t ed25519 -f $SSH_SECRET_PATH -C \"nstanard@gmail.com\""
+alias sageeval="eval \"$(ssh-agent -s)\""
+alias sageauth="ssh-add -K $SSH_SECRET_PATH"
+alias sagecopy="pbcopy < $SSH_SECRET_PATH.pub"
+
 if [[ $- == *i* ]]
 then
     bind '"\e[A": history-search-backward'
@@ -95,6 +106,11 @@ fi
 # DOCKER - https://phoenixnap.com/kb/how-to-list-start-stop-docker-containers
 alias di='docker images'
 alias adi='docker images -a'
+
+# NODEJS
+
+eval "$(nodenv init -)"
+nodenv shell 14.15.5
 
 EOF
 
