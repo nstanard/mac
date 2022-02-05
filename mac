@@ -1,9 +1,23 @@
 #!/bin/bash
 
+a_flag='' # Homebrew
+b_flag='' # Ruby
+
+print_usage() {
+  printf "Usage: ..."
+}
+
+while getopts 'abf:v' flag; do
+  case "${flag}" in
+    a) a_flag='true' ;;
+    b) b_flag='true' ;;
+    *) print_usage
+       exit 1 ;;
+  esac
+done
+
 # https://stackoverflow.com/questions/12815774/importing-functions-from-a-shell-script
 . ./functions.sh --source-only
-
-SKIP_RUBY=1;
 
 export RED='\033[0;31m'
 export NC='\033[0m' # No Color
@@ -25,14 +39,6 @@ mkdir -p $MAC_SETUP_FOLDER;
 
 export LAST_RUN_FILE="$MAC_SETUP_FOLDER/.last"
 
-export INIT=0;
-INIT_FILE="$MAC_SETUP_FOLDER/.init"
-if test -f "$INIT_FILE"; then
-    INIT=1;
-else
-    touch $INIT_FILE;
-fi
-
 # Copy scripts over 
 cp ./scripts/pathmunge.sh $SCRIPTS
 cp ./scripts/filelimit.sh $SCRIPTS
@@ -46,16 +52,16 @@ pathmunge "/usr/local/sbin";
 # /usr/local/sbin is for system administration programs (which are not part of the core OS) that a local administrator may run. 
 pathmunge "/usr/local/bin/node";
 
-# TODO: accept --shell flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-# TODO: accept --homebrew flag to do this conditionally
-bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+if [[ "$a_flag" == "true" ]]; then
+    bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
+fi
 
-# TODO: accept --ruby flag to do this conditionally
-bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+if [[ "$b_flag" == "true" ]]; then
+    bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
+fi
 
-# TODO: accept --devrc flag to do this conditionally
 bash "$MAC_SETUP_FOLDER/scripts/devrc.sh";
 
 # Append the devrc to the main shell file to be sourced on shell start

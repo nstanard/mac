@@ -35,17 +35,13 @@ else
   echo "Review the Homebrew messages to see if any action is needed."
 fi
 
-if [$INIT -eq 0]; then
-  fancy_echo "Installing formulas and casks from the Brewfile ..."
-  if [brew bundle --file="$MAC_SETUP_FOLDER/Brewfile"]; then
-    fancy_echo "All formulas and casks were installed successfully."
-  else
-    fancy_echo "Some formulas or casks failed to install."
-    echo "This is usually due to one of the Mac apps being already installed,"
-    echo "in which case, you can ignore these errors."
-  fi
-else 
-    echo -e "${RED}\nSkipping 'brew bundle Brewfile'. \nDelete the .init file and run again to reinstall the Brewfile.${NC}"
+fancy_echo "Installing formulas and casks from the Brewfile ..."
+if [brew bundle --file="$MAC_SETUP_FOLDER/Brewfile"]; then
+  fancy_echo "All formulas and casks were installed successfully."
+else
+  fancy_echo "Some formulas or casks failed to install."
+  echo "This is usually due to one of the Mac apps being already installed,"
+  echo "in which case, you can ignore these errors."
 fi
 
 # TODO: Check owner of all contenxt of /usr/local (brew prefix) and only do this if it's not equal to whoami
