@@ -48,7 +48,7 @@ alias code="open -a 'Visual Studio Code.app'"
 # Terraform
 
 alias tfinit="terraform init";
-alias tfplan="terraform plan -out -no-color > tfplan.txt";
+alias tfplan="terraform plan -no-color > tfplan.txt";
 alias tfapply="terraform apply";
 alias tfdestroy="terraform destroy";
 
