@@ -114,9 +114,17 @@ fi
 alias di='docker images'
 alias adi='docker images -a'
 
-# NodeJS
+# NodeNV
+pathmunge "~/Development/.nodenv/bin"
 eval "\$(nodenv init -)"
-nodenv shell 14.15.5
+nodenv shell 17.4.0
+
+install_nodenv_update() {
+    mkdir -p "$(nodenv root)"/plugins
+    git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
+    nodenv update;
+}
+
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi
