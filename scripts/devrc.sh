@@ -28,6 +28,8 @@ alias nosleep=caffeinate -distu 360000
 # count lines of code quickly
 alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l";
 
+alias dev="cd ~/Development";
+
 alias re="sudo !!";
 
 alias h="history";
