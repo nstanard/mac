@@ -31,6 +31,9 @@ alias h='history';
 
 alias c='clear';
 
+alias ll='exa -lh --git --modified --icons';
+alias l='ls -lahF';
+
 alias aliasclear="unalias -a";
 alias reload="source ~/.devrc";
 RELOAD() { reload }; # caps oops chain to real alias but dont show in commands output
