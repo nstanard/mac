@@ -34,7 +34,8 @@ alias h="history";
 
 alias c="clear";
 
-alias l="exa -al --git --modified --icons";
+alias l="exa -l --git --modified --icons";
+alias ll="l -al"
 
 alias aliasclear="unalias -a";
 alias reload="source ~/.devrc";
