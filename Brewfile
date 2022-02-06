@@ -1,9 +1,10 @@
 cask_args appdir: '/Applications'
 
 # DO NOT INSTALL NODE THROUGH BREW - USE nodenv
-brew 'node'
-brew postinstall node
-brew link node
+# brew 'node'
+# brew postinstall node
+# brew link node
+### ^ WILL BREAK THE SCRIPT ^
 
 # https://formulae.brew.sh/formula/awscli
 brew 'awscli'

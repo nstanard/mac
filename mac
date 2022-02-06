@@ -61,11 +61,11 @@ pathmunge "/usr/local/bin/node";
 
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-if [[ $run_homebrew ]]; then
+if [[ $run_homebrew == 1 ]]; then
     bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 fi
 
-if [[ $run_ruby ]]; then
+if [[ $run_ruby == 1 ]]; then
     bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 fi
 
