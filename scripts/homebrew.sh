@@ -35,8 +35,10 @@ else
   echo "Review the Homebrew messages to see if any action is needed."
 fi
 
-fancy_echo "Installing formulas and casks from the Brewfile ..."
-if [brew bundle --file="$MAC_SETUP_FOLDER/Brewfile"]; then
+echo "$MAC_SETUP_FOLDER/Brewfile";
+
+fancy_echo "Installing formulas and casks from the Brewfile ...";
+if brew bundle --file="$MAC_SETUP_FOLDER/Brewfile"; then
   fancy_echo "All formulas and casks were installed successfully."
 else
   fancy_echo "Some formulas or casks failed to install."

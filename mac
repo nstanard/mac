@@ -44,11 +44,11 @@ mkdir -p $SCRIPTS;
 export MAC_SETUP_FOLDER="$DEV_FOLDER/mac";
 mkdir -p $MAC_SETUP_FOLDER;
 
-export LAST_RUN_FILE="$MAC_SETUP_FOLDER/.last"
+export LAST_RUN_FILE="$MAC_SETUP_FOLDER/.last";
 
 # Copy scripts over 
-cp ./scripts/pathmunge.sh $SCRIPTS
-cp ./scripts/filelimit.sh $SCRIPTS
+cp ./scripts/pathmunge.sh $SCRIPTS;
+cp ./scripts/filelimit.sh $SCRIPTS;
 
 export shell_file=$(get_shell_file);
 
@@ -61,11 +61,11 @@ pathmunge "/usr/local/bin/node";
 
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-if [[ $run_homebrew == 1 ]]; then
+if [ $run_homebrew == 1 ]; then
     bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 fi
 
-if [[ $run_ruby == 1 ]]; then
+if [ $run_ruby == 1 ]; then
     bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 fi
 

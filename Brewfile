@@ -8,6 +8,7 @@ cask_args appdir: '/Applications'
 
 # https://formulae.brew.sh/formula/awscli
 brew 'awscli'
+brew 'jq'
 
 # https://formulae.brew.sh/formula/terraform
 brew 'terraform'
