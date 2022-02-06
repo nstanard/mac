@@ -1,20 +1,27 @@
 #!/bin/bash
 
-a_flag='' # Homebrew
-b_flag='' # Ruby
+run_homebrew=0;
+echo ""
+read -p "Would you like to run Homebrew install/config? [N/y]: " response
+response=${response:-n}
+if [ "$response" = "y" ]; then
+  echo "Yes";
+  run_homebrew=1;
+else
+  echo "No";
+fi
 
-print_usage() {
-  printf "Usage: ..."
-}
-
-while getopts 'abf:v' flag; do
-  case "${flag}" in
-    a) a_flag='true' ;;
-    b) b_flag='true' ;;
-    *) print_usage
-       exit 1 ;;
-  esac
-done
+run_ruby=0;
+echo ""
+read -p "Would you like to run Ruby install/config? [N/y]: " response
+response=${response:-n}
+if [ "$response" = "y" ]; then
+  echo "Yes";
+  run_ruby=1;
+else
+  echo "No";
+fi
+echo ""
 
 # https://stackoverflow.com/questions/12815774/importing-functions-from-a-shell-script
 . ./functions.sh --source-only
@@ -54,11 +61,11 @@ pathmunge "/usr/local/bin/node";
 
 bash "$MAC_SETUP_FOLDER/scripts/shell.sh";
 
-if [[ "$a_flag" == "true" ]]; then
+if [[ $run_homebrew ]]; then
     bash "$MAC_SETUP_FOLDER/scripts/homebrew.sh";
 fi
 
-if [[ "$b_flag" == "true" ]]; then
+if [[ $run_ruby ]]; then
     bash "$MAC_SETUP_FOLDER/scripts/ruby.sh";
 fi
 
