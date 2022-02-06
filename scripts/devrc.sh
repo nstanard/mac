@@ -8,6 +8,9 @@ source $SCRIPTS/filelimit.sh
 
 pathmunge "/usr/local/sbin"
 
+touch ~/.envrc.sh
+source ~/.envrc.sh
+
 alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
 
 # my main repo list shortcut
