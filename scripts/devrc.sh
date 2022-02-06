@@ -23,27 +23,21 @@ alias commands="grep -in --color -e '^alias\s+*' ~/.devrc | sed 's/alias //' | g
 alias nosleep=caffeinate -distu 360000
 
 # count lines of code quickly
-alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l"
+alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l";
 
-alias re='sudo !!'
+alias re='sudo !!';
 
-alias h='history'
+alias h='history';
 
-alias c='clear'
+alias c='clear';
 
-alias ls='exa -lh --git --modified --icons'
-alias lss='ls -lahF'
-
-alias reload="unalias -a && source ~/.devrc"
+alias aliasclear="unalias -a";
+alias reload="source ~/.devrc";
+RELOAD() { reload }; # caps oops chain to real alias but dont show in commands output
 
 alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
 alias code="open -a 'Visual Studio Code.app'"
-
-alias watch="npm run watch"
-alias start="npm start"
-alias test="npm run test"
-alias lint="npm run lint"
 
 # GIT
 # ----------------------
@@ -111,8 +105,26 @@ then
 fi
 
 # DOCKER - https://phoenixnap.com/kb/how-to-list-start-stop-docker-containers
-alias di='docker images'
-alias adi='docker images -a'
+alias di='docker images';
+alias adi='docker images -a';
+
+# AWS DOCKER
+
+docker_auth() {
+    ACCOUNT_ID=\$(aws sts get-caller-identity | jq -r ".Account");
+    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "\$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com";
+}
+alias dauth = docker_auth();
+
+docker_tag() {
+    eval "\$(docker tag \$1\:latest \$2\:latest)";
+}
+alias dtag = docker_tag();
+
+docker_push() {
+    docker push \$1;
+}
+alias dpush = docker_push();
 
 # NodeNV
 pathmunge "~/Development/.nodenv/bin"
@@ -125,7 +137,7 @@ install_nodenv_update() {
     nodenv update;
 }
 
-alias r="npm run $1"
+alias r="npm run \$1"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi
