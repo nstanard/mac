@@ -25,14 +25,13 @@ alias nosleep=caffeinate -distu 360000
 # count lines of code quickly
 alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l";
 
-alias re='sudo !!';
+alias re="sudo !!";
 
-alias h='history';
+alias h="history";
 
-alias c='clear';
+alias c="clear";
 
-alias ll='exa -lh --git --modified --icons';
-alias l='ls -lahF';
+alias l="exa -l --git --modified --icons";
 
 alias aliasclear="unalias -a";
 alias reload="source ~/.devrc";
