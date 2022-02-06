@@ -50,6 +50,7 @@ alias code="open -a 'Visual Studio Code.app'"
 alias tfinit="terraform init";
 alias tfplan="terraform plan -out -no-color > tfplan.txt";
 alias tfapply="terraform apply";
+alias tfdestroy="terraform destroy";
 
 # GIT
 # ----------------------
