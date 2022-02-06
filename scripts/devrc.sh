@@ -125,6 +125,9 @@ install_nodenv_update() {
     nodenv update;
 }
 
+r() {
+    npm run $1
+}
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi
