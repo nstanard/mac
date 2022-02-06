@@ -45,6 +45,11 @@ alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
 alias code="open -a 'Visual Studio Code.app'"
 
+# Terraform
+
+alias tfinit="terraform init";
+alias tfplan="terraform plan -no-color > tfplan.txt";
+
 # GIT
 # ----------------------
 # Git Aliases
