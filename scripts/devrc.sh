@@ -138,8 +138,8 @@ eval "\$(nodenv init -)"
 nodenv shell 17.4.0
 
 install_nodenv_update() {
-    mkdir -p "$(nodenv root)"/plugins
-    git clone https://github.com/nodenv/nodenv-update.git "$(nodenv root)"/plugins/nodenv-update
+    mkdir -p "\$(nodenv root)"/plugins
+    git clone https://github.com/nodenv/nodenv-update.git "\$(nodenv root)"/plugins/nodenv-update
     nodenv update;
 }
 
