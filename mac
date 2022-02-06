@@ -2,7 +2,7 @@
 
 run_homebrew=0;
 echo ""
-read -p "Would you like to run Homebrew install/config? [N/y]: " response
+read -p "Would you like to run the Homebrew install/config? [N/y]: " response
 response=${response:-n}
 if [ "$response" = "y" ]; then
   echo "Yes";
@@ -13,7 +13,7 @@ fi
 
 run_ruby=0;
 echo ""
-read -p "Would you like to run Ruby install/config? [N/y]: " response
+read -p "Would you like to run the Ruby install/config? [N/y]: " response
 response=${response:-n}
 if [ "$response" = "y" ]; then
   echo "Yes";
