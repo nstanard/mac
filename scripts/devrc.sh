@@ -115,7 +115,7 @@ alias di='docker images'
 alias adi='docker images -a'
 
 # NodeJS
-eval \$(nodenv init -)
+eval "\$(nodenv init -)"
 nodenv shell 14.15.5
 
 # The next line updates PATH for the Google Cloud SDK.
