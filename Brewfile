@@ -5,6 +5,9 @@ brew 'node'
 brew postinstall node
 brew link node
 
+# https://formulae.brew.sh/formula/awscli
+brew 'awscli'
+
 # https://formulae.brew.sh/formula/terraform
 brew 'terraform'
 
