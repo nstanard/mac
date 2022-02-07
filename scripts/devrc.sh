@@ -6,6 +6,20 @@ cat > $devrc <<-EOF
 source $SCRIPTS/pathmunge.sh
 source $SCRIPTS/filelimit.sh
 
+GREEN=$(tput setaf 65)
+
+ORANGE=$(tput setaf 166)
+
+NORMAL=$(tput sgr0)
+
+export PS1="${ORANGE}[%~] ${GREEN}%D{%f/%m/%y} %D{%L:%M:%S} ${NORMAL}$"
+# export PS1="${ORANGE}[%~] ${GREEN}$(prompt_ruby_info) ${NORMAL}$"
+
+export CLICOLOR=1;
+
+export LSCOLORS=exfxcxdxbxegedabagacad;
+export EXA_COLORS="da=1;34"
+
 pathmunge "/usr/local/sbin"
 
 touch ~/.envrc.sh
