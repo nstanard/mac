@@ -54,10 +54,14 @@ alias tfplan="terraform plan -no-color > tfplan.txt";
 alias tfapply="terraform apply";
 alias tfdestroy="terraform destroy";
 
-# GIT
-# ----------------------
 # Git Aliases
-# ----------------------
+
+if [ -d "./.git" ]; then
+    branch_name="$(git symbolic-ref -q HEAD)";
+    branch_name="${branch_name##refs/heads/}";
+    branch_name="${branch_name:-HEAD}";
+fi
+
 alias gpop="git reset --soft HEAD~1"
 alias push="git push origin HEAD"
 alias ga='git add'
@@ -67,9 +71,6 @@ alias gau='git add --update'
 alias gb='git branch'
 alias gbd='git branch --delete '
 alias gc='git commit'
-branch_name=$(git symbolic-ref -q HEAD)
-branch_name=${ranch_name##refs/heads/}
-branch_name=${branch_name:-HEAD}
 alias gcm='git commit --message "$branch_name - $msg"'
 alias gcf='git commit --fixup'
 alias gco='git checkout'
