@@ -28,6 +28,9 @@ touch ~/.hushlogin
 touch ~/.envrc
 source ~/.envrc
 
+TEST_URL="https://www.google.com"
+alias test="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
+
 alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
 
 # my main repo list shortcut
