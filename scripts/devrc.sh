@@ -75,11 +75,13 @@ alias tfdestroy="terraform destroy";
 
 # Git Aliases
 
-if [ -d "./.git" ]; then
-    branch_name="$(git symbolic-ref -q HEAD)";
-    branch_name="${branch_name##refs/heads/}";
-    branch_name="${branch_name:-HEAD}";
-fi
+get_branch_name() {
+    if [ -d "./.git" ]; then
+        branch_name="$(git symbolic-ref -q HEAD)";
+        branch_name="${branch_name##refs/heads/}";
+        branch_name="${branch_name:-HEAD}";
+    fi
+}
 
 alias gpop="git reset --soft HEAD~1"
 alias push="git push origin HEAD"
@@ -90,7 +92,7 @@ alias gau='git add --update'
 alias gb='git branch'
 alias gbd='git branch --delete '
 alias gc='git commit'
-alias gcm='git commit --message "$branch_name - $msg"'
+alias gcm='get_branch_name && git commit --message "$branch_name - $msg"'
 alias gcf='git commit --fixup'
 alias gco='git checkout'
 alias gcob='git checkout -b'
