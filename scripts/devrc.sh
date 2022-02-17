@@ -142,6 +142,7 @@ alias sagecopy="pbcopy < $SSH_SECRET_PATH.pub"
 alias sagelist="ssh-add -l"
 alias sageclean="ssh-add -D"
 
+# https://dev.to/rossijonas/how-to-set-up-history-based-autocompletion-in-zsh-k7o
 if [[ $- == *i* ]]
 then
     bind '"\e[A": history-search-backward'
