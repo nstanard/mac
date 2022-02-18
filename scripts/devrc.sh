@@ -6,7 +6,7 @@ cat > $devrc <<-EOF
 source $SCRIPTS/pathmunge.sh
 source $SCRIPTS/filelimit.sh
 
-cd ~/Development
+cd $DEV_FOLDER
 
 # TODO: Figure out difference between zshell and bash prompting and split it out via scripts
 GREEN=\$(tput setaf 65)
@@ -28,8 +28,7 @@ touch ~/.hushlogin
 touch ~/.envrc
 source ~/.envrc
 
-TEST_URL="https://www.google.com"
-alias test="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
+alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
 
 alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
 
@@ -60,8 +59,15 @@ alias l="exa -l --git --modified --icons";
 alias ll="l -al"
 
 alias aliasclear="unalias -a";
-alias reload="source ~/.devrc";
-RELOAD() { reload }; # caps oops chain to real alias but dont show in commands output
+
+alias r="npm run \$1"
+
+reload () {
+    tmp=\$PWD;
+    source ~/.devrc;
+    cd \$tmp;
+}
+RELOAD () { reload };
 
 alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
@@ -80,9 +86,9 @@ alias tfdestroy="terraform destroy";
 
 get_branch_name() {
     if [ -d "./.git" ]; then
-        branch_name="$(git symbolic-ref -q HEAD)";
-        branch_name="${branch_name##refs/heads/}";
-        branch_name="${branch_name:-HEAD}";
+        branch_name="\$(git symbolic-ref -q HEAD)";
+        branch_name="\${branch_name##refs/heads/}";
+        branch_name="\${branch_name:-HEAD}";
     fi
 }
 
@@ -95,7 +101,7 @@ alias gau='git add --update'
 alias gb='git branch'
 alias gbd='git branch --delete '
 alias gc='git commit'
-alias gcm='get_branch_name && git commit --message "$branch_name - $msg"'
+alias gcm='get_branch_name && git commit --message "\$branch_name - \$msg"'
 alias gcf='git commit --fixup'
 alias gco='git checkout'
 alias gcob='git checkout -b'
@@ -128,26 +134,45 @@ alias gsts='git stash save'
 # Git Functions
 # ----------------------
 # Git log find by commit message
-function glf() { git log --all --grep="$1"; }
+function glf() { git log --all --grep="\$1"; }
 
 # ----------------------
 # SSH Agent Shortcuts (Sage)
 # ----------------------
 
 export SSH_SECRET_PATH="~/.ssh/gh";
-alias sagegen="ssh-keygen -t ed25519 -f $SSH_SECRET_PATH -C \"nstanard@gmail.com\""
+alias sagegen="ssh-keygen -t ed25519 -f \$SSH_SECRET_PATH -C \"nstanard@gmail.com\""
 alias sageeval="eval \"\$(ssh-agent -s)\""
-alias sageauth="ssh-add --apple-use-keychain $SSH_SECRET_PATH"
-alias sagecopy="pbcopy < $SSH_SECRET_PATH.pub"
+alias sageauth="ssh-add --apple-use-keychain \$SSH_SECRET_PATH"
+alias sagecopy="pbcopy < \$SSH_SECRET_PATH.pub"
 alias sagelist="ssh-add -l"
 alias sageclean="ssh-add -D"
 
-# https://dev.to/rossijonas/how-to-set-up-history-based-autocompletion-in-zsh-k7o
-if [[ $- == *i* ]]
+# AUTOCOMPLETION
+
+# initialize autocompletion
+autoload -U compinit
+compinit
+
+# history setup
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt EXTENDED_HISTORY
+
+# autocompletion using arrow keys (based on history)
+if [[ hB == *i* ]]
 then
     bind '"\e[A": history-search-backward'
     bind '"\e[B": history-search-forward'
 fi
+# GENERAL
+
+# never beep
+setopt NO_BEEP
 
 # DOCKER - https://phoenixnap.com/kb/how-to-list-start-stop-docker-containers
 alias di='docker images';
@@ -168,8 +193,13 @@ dpush() {
     docker push \$1;
 }
 
+# https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+dprune () {
+    docker system prune -a;
+}
+
 # NodeNV
-pathmunge "~/Development/.nodenv/bin"
+pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
 nodenv shell 17.4.0
 
@@ -179,10 +209,9 @@ install_nodenv_update() {
     nodenv update;
 }
 
-alias r="npm run \$1"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc"; fi
 # The next line enables shell command completion for gcloud.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
+
 EOF
