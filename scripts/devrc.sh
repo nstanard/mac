@@ -184,19 +184,23 @@ dauth() {
     ACCOUNT_ID=\$(aws sts get-caller-identity | jq -r ".Account");
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "\$ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com";
 }
+alias DAUTH=dauth;
 
 dtag() {
     eval "\$(docker tag \$1\:latest \$2\:latest)";
 }
+alias DTAG=dtag;
 
 dpush() {
     docker push \$1;
 }
+alias DPUSH=dpush;
 
 # https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
 dprune () {
     docker system prune -a;
 }
+alias DPRUNE=dprune;
 
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
