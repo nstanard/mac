@@ -1,10 +1,8 @@
 Mac
 ======
+
 Mac is a script to set up a macOS computer for web development, and to keep
 it up to date.
-
-It can be run multiple times on the same machine safely. It installs,
-upgrades, or skips packages based on what is already installed on the machine.
 
 If you want - the script also lightly customizes your shell prompt so that it displays your
 current directory in orange, followed by the current Ruby version or gemset in
