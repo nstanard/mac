@@ -28,6 +28,11 @@ touch ~/.hushlogin
 touch ~/.envrc
 source ~/.envrc
 
+ftext ()
+{
+    grep -iIHrn --color=always "\$1" . | less -R -r
+}
+
 generateqr ()
 {
     printf "\$@" | curl -F-=\<- qrenco.de
