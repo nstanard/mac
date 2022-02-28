@@ -28,6 +28,11 @@ touch ~/.hushlogin
 touch ~/.envrc
 source ~/.envrc
 
+generateqr ()
+{
+    printf "\$@" | curl -F-=\<- qrenco.de
+}
+
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
 alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
