@@ -28,6 +28,8 @@ touch ~/.hushlogin
 touch ~/.envrc
 source ~/.envrc
 
+mkcd () { mkdir -vp "\$@" && cd "\$@"; }
+
 alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
 
 alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
