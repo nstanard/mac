@@ -38,6 +38,23 @@ generateqr ()
     printf "\$@" | curl -F-=\<- qrenco.de
 }
 
+function col
+{
+
+  awk -v col=\$1 '{print \$col}'
+
+}
+alias c9="l | col 9"
+
+function skip
+{
+
+    n=\$((\$1 + 1))
+
+    cut -d' ' -f\$n-
+
+}
+
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
 alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
