@@ -4,11 +4,7 @@ Mac is a script to set up a macOS computer for web development, and to keep
 it up to date.
 
 If you want - the script also lightly customizes your shell prompt so that it displays your
-current directory in orange, followed by the current Ruby version or gemset in
-green, and sets the prompt character to `$`. It also allows you to easily
-distinguish directories from files when running `ls` by displaying directories
-in a different color. Below is a screenshot showing what the colors look like
-when using the default Terminal white background, the Solarized Dark theme, and the Solarized Light theme.
+current directory in orange.
 
 ## How to define and use colors
 
