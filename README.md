@@ -21,7 +21,7 @@ Then in the line that contains `PS1=`, replace `{ORANGE}` or `{GREEN}` with
 
 The script does not automatically launch these services after installation
 because you might not need or want them to be running. With Homebrew Services,
-starting, stopping, or restarting these services is as easy as:
+starting, stopping, or restarting these services is as easy as the command below. If you insist on having brew services init on boot, [configure a LaunchAgent entry for the service you want to start](https://stackoverflow.com/questions/8014500/macosx-autostart-mysql-on-boot).
 
 ```
 brew services start|stop|restart [name of service]
