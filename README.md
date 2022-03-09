@@ -1,6 +1,6 @@
 # Mac
 
-Mac is a script to set up a macOS computer for web development, and to keep
+Mac is a script to set up a macOS computer for web development and to keep
 it up to date.
 
 If you want - the script also lightly customizes your shell prompt so that it displays your
