@@ -57,6 +57,8 @@ function skip
 
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
+alias vi="nvim"
+
 alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
 
 alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
