@@ -46,8 +46,8 @@ cask 'slack'
 # https://formulae.brew.sh/cask/google-chrome#default
 cask 'google-chrome'
 
-# https://formulae.brew.sh/cask/visual-studio-code#default
-cask 'visual-studio-code'
+# https://vscodium.com/
+cask 'vscodium'
 
 # https://formulae.brew.sh/cask/sublime-text#default
 cask 'sublime-text'
