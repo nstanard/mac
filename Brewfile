@@ -28,6 +28,9 @@ brew 'cmake'
 # https://formulae.brew.sh/formula/nodenv#default
 brew 'nodenv'
 
+# https://formulae.brew.sh/formula/neovim#default
+brew 'neovim'
+
 ###
 # https://ffmpeg.org/ffmpeg.html
 # https://www.npmjs.com/package/ffmpeg
