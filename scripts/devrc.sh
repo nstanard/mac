@@ -105,7 +105,7 @@ RELOAD () { reload };
 
 alias subl="open -a 'Sublime Text.app'"
 alias atom="open -a 'Atom.app'"
-alias code="open -a 'Visual Studio Code.app'"
+alias code="open -a 'VSCodium.app'"
 
 alias bl="brew services list"
 alias bc="brew services cleanup"
