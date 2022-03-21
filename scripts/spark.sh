@@ -8,6 +8,10 @@ itstg () {
     http -f post app.stg.sparkpost:8888/api/v1/authenticate/logout x-msys-tenant:staging Authorization:$1 token=$1
 }
 
+itprd () {
+    http -f post app.prd.sparkpost:8888/api/v1/authenticate/logout x-msys-customer:105 x-msys-tenant:spc Authorization:$1 token=$1
+}
+
 itchkstg () {
     http get "app.stg.sparkpost/access?access_token=$1&tenant=staging&resource_method=get&resource_uri=/api/v1/metrics"
 }
