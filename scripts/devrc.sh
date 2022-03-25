@@ -243,6 +243,8 @@ dprune () {
 }
 alias DPRUNE=dprune;
 
+alias pl="ps ax"
+
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
