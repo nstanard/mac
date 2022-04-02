@@ -62,6 +62,7 @@ lintStaged() {
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
 alias vi="nvim"
+alias svi="sudo nvim"
 
 # alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
 
