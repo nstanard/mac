@@ -255,7 +255,18 @@ dprune () {
 }
 alias DPRUNE=dprune;
 
+# Process list
 alias pl="ps ax"
+
+# Linting
+lf() {
+    eslint --fix $(git diff --diff-filter=TAM --name-only | grep -- 'src/*')
+}
+
+lintStaged() {
+    eslint $1 $(git diff --diff-filter=TAM --staged --name-only | grep -- 'src/*')
+}
+
 
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
