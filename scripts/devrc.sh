@@ -55,10 +55,6 @@ function skip
 
 }
 
-lintStaged() {
-    eslint $(git diff --diff-filter=TAM --staged --name-only | grep -- 'src/*')
-}
-
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
 # Column output
