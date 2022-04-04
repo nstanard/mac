@@ -61,6 +61,11 @@ lintStaged() {
 
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
 
+# Column output
+function col {
+  awk -v col=$1 '{print $col}'
+}
+
 alias vi="nvim"
 alias svi="sudo nvim"
 alias lnnpm="ln -s ~/.config/.npmrc ./.npmrc"
