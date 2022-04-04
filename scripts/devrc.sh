@@ -66,6 +66,11 @@ function col {
   awk -v col=$1 '{print $col}'
 }
 
+# Max line output with line numbers
+function readmax {
+  awk "{print NR,\$0} NR==$1{exit}"
+}
+
 alias vi="nvim"
 alias svi="sudo nvim"
 alias lnnpm="ln -s ~/.config/.npmrc ./.npmrc"
