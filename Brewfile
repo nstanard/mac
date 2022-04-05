@@ -60,3 +60,6 @@ cask 'iterm2'
 
 # https://formulae.brew.sh/cask/docker#default
 cask 'docker'
+
+# https://formulae.brew.sh/cask/raspberry-pi-imager
+cask 'raspberry-pi-imager'
