@@ -67,6 +67,7 @@ function readmax {
   awk "{print NR,\$0} NR==$1{exit}"
 }
 
+alias sys="uname -a"
 alias vi="nvim"
 alias svi="sudo nvim"
 alias lnnpm="ln -s ~/.config/.npmrc ./.npmrc"
