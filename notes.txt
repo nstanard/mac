@@ -1,3 +1,8 @@
+Resources:
+
+ - https://gitlab.com/phoneybadger/pokemon-colorscripts#installation
+ - https://gitlab.com/dwt1/shell-color-scripts
+
 
 Git Config Stuff:
     fetch = +refs/pull/*/head:refs/remotes/upstream/pr/*
