@@ -265,7 +265,6 @@ lintStaged() {
     eslint $1 $(git diff --diff-filter=TAM --staged --name-only | grep -- 'src/*')
 }
 
-
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"

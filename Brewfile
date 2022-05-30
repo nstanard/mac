@@ -63,3 +63,6 @@ cask 'docker'
 
 # https://formulae.brew.sh/cask/raspberry-pi-imager
 cask 'raspberry-pi-imager'
+
+# https://formulae.brew.sh/cask/kap
+cask 'kap'
