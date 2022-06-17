@@ -31,12 +31,6 @@ brew 'nodenv'
 # https://formulae.brew.sh/formula/neovim#default
 brew 'neovim'
 
-###
-# https://ffmpeg.org/ffmpeg.html
-# https://www.npmjs.com/package/ffmpeg
-# https://formulae.brew.sh/formula/ffmpeg
-# brew 'ffmpeg'
-
 # https://formulae.brew.sh/cask/postman#default
 cask 'postman'
 
