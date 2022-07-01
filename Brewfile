@@ -43,9 +43,6 @@ cask 'google-chrome'
 # https://vscodium.com/
 cask 'vscodium'
 
-# https://formulae.brew.sh/cask/sublime-text#default
-cask 'sublime-text'
-
 # https://formulae.brew.sh/cask/firefox#default
 cask 'firefox'
 
