@@ -77,15 +77,4 @@ append_to_file $shell_file "source $HOME/.devrc"
 # https://rubjo.github.io/victor-mono/
 brew tap homebrew/cask-fonts
 
-# https://github.com/powerline/fonts
-# Doesn't work on zshell?
-# sudo apt-get install fonts-powerline
-# https://github.com/powerline/fonts/tree/master/SourceCodePro - give this a try when you have time
-
-# Write out OS last run data
-# 1.
-# cat > $LAST_RUN_FILE <<-EOF
-# $(sw_vers)
-# EOF
-# 2. 
 echo $(sw_vers) > $LAST_RUN_FILE;

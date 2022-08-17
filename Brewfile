@@ -1,6 +1,6 @@
 cask_args appdir: '/Applications'
 
-# DO NOT INSTALL NODE THROUGH BREW - USE nodenv
+# DO NOT INSTALL NODE THROUGH BREW - USE nodenv or some other node version manager
 # brew 'node'
 # brew postinstall node
 # brew link node
@@ -21,9 +21,6 @@ brew 'exa'
 
 # https://formulae.brew.sh/formula/wget#default
 brew 'wget'
-
-# https://formulae.brew.sh/cask/cmake#default
-brew 'cmake'
 
 # https://formulae.brew.sh/formula/nodenv#default
 brew 'nodenv'

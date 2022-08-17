@@ -8,12 +8,10 @@ source $SCRIPTS/filelimit.sh
 
 cd $DEV_FOLDER
 
-# TODO: Figure out difference between zshell and bash prompting and split it out via scripts
 GREEN=\$(tput setaf 65)
 ORANGE=\$(tput setaf 166)
 NORMAL=\$(tput sgr0)
 export PS1="\${ORANGE}[%~] \${GREEN}%D{%f/%m/%y} %D{%L:%M:%S}\${NORMAL}: "
-# export PS1="\${ORANGE}[%~] \${GREEN}\$(prompt_ruby_info)\${NORMAL}: "
 
 export CLICOLOR=1;
 
@@ -22,7 +20,6 @@ export EXA_COLORS="da=1;34"
 
 pathmunge "/usr/local/sbin"
 
-# TODO: Put behind zshell specific check/step
 touch ~/.hushlogin
 
 touch ~/.envrc
@@ -40,19 +37,14 @@ generateqr ()
 
 function col
 {
-
   awk -v col=\$1 '{print \$col}'
-
 }
 alias c9="l | col 9"
 
 function skip
 {
-
     n=\$((\$1 + 1))
-
     cut -d' ' -f\$n-
-
 }
 
 mkcd () { mkdir -vp "\$@" && cd "\$@"; }
@@ -268,7 +260,7 @@ lintStaged() {
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
-nodenv shell 17.4.0
+nodenv shell 16.17.0
 
 install_nodenv_update() {
     mkdir -p "\$(nodenv root)"/plugins
