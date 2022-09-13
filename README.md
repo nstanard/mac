@@ -6,7 +6,7 @@ it up to date.
 If you want - the script also lightly customizes your shell prompt so that it displays your
 current directory in orange.
 
-## Steps
+## First-run Steps
 
 1. On a fresh OS install ... use safari to download this repo as a zip file.
 2. Extract the repo to ~/Development/mac
