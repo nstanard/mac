@@ -48,3 +48,6 @@ cask 'iterm2'
 
 # https://formulae.brew.sh/cask/docker#default
 cask 'docker'
+
+# https://formulae.brew.sh/cask/1password
+cask '1password'
