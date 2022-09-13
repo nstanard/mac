@@ -5,8 +5,7 @@
 
 if ! command -v brew >/dev/null; then
   fancy_echo "Installing Homebrew ..."
-    curl -fsS \
-      'https://raw.githubusercontent.com/Homebrew/install/master/install' | ruby
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
     # shellcheck disable=SC2016
     append_to_file "$shell_file" 'export PATH="/usr/local/bin:$PATH"'
