@@ -9,7 +9,7 @@ current directory in orange.
 ## First-run Steps
 
 1. On a fresh OS install ... use safari to download this repo as a zip file.
-2. Extract the repo to ~/Development/mac
+2. Extract the repo to `~/Development/mac`
 3. Navigate to `~/Development/mac` on the command line and run `bash mac`
 
 ## How to define and use colors
