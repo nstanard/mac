@@ -6,6 +6,12 @@ it up to date.
 If you want - the script also lightly customizes your shell prompt so that it displays your
 current directory in orange.
 
+## Steps
+
+1. On a fresh OS install ... download this repo as a zip file.
+2. Extract the repo to ~/Development/mac
+3. Navigate to `~/Development/mac` on the command line and run `bash mac`
+
 ## How to define and use colors
 
 Define a new color variable using any of the 256 possible [Xterm colors](http://upload.wikimedia.org/wikipedia/commons/9/95/Xterm_color_chart.png). For example:
