@@ -64,8 +64,7 @@ alias vi="nvim"
 alias svi="sudo nvim"
 alias lnnpm="ln -s ~/.config/.npmrc ./.npmrc"
 
-# alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
-
+# open chrome without web security - https://stackoverflow.com/questions/3102819/disable-same-origin-policy-in-chrome
 alias insecure="open -a Google\ Chrome --args --disable-web-security --user-data-dir"
 
 # my main repo list shortcut
