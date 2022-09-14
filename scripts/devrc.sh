@@ -261,7 +261,7 @@ lintStaged() {
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
-nodenv shell 16.17.0
+nodenv shell 18.7.0
 
 install_nodenv_update() {
     mkdir -p "\$(nodenv root)"/plugins
