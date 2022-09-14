@@ -16,6 +16,9 @@ brew 'terraform'
 # https://formulae.brew.sh/formula/git
 brew 'git'
 
+# https://formulae.brew.sh/formula/gh
+brew 'gh'
+
 # https://formulae.brew.sh/formula/exa#default
 brew 'exa'
 
