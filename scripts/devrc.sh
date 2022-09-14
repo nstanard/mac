@@ -66,7 +66,7 @@ alias lnnpm="ln -s ~/.config/.npmrc ./.npmrc"
 
 # alias op1="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary -incognito --auto-open-devtools-for-tabs $TEST_URL"
 
-alias learn="open -a /Applications/Google\ Chrome.app https://www.udemy.com/home/my-courses/learning/"
+alias insecure="open -a Google\ Chrome --args --disable-web-security --user-data-dir"
 
 # my main repo list shortcut
 alias repols="open -a /Applications/Google\ Chrome.app https://github.com/stars/nstanard/lists/repositories/"
