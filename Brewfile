@@ -54,3 +54,6 @@ cask 'docker'
 
 # https://formulae.brew.sh/cask/1password
 cask '1password'
+
+# https://formulae.brew.sh/cask/spotify
+cask 'spotify'
