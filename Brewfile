@@ -31,6 +31,9 @@ brew 'nodenv'
 # https://formulae.brew.sh/formula/neovim#default
 brew 'neovim'
 
+# https://formulae.brew.sh/formula/go
+brew 'go'
+
 # https://formulae.brew.sh/formula/task - https://github.com/go-task/homebrew-tap
 brew 'go-task/tap/go-task'
 
