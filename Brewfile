@@ -31,6 +31,9 @@ brew 'nodenv'
 # https://formulae.brew.sh/formula/neovim#default
 brew 'neovim'
 
+# https://formulae.brew.sh/formula/task - https://github.com/go-task/homebrew-tap
+brew 'go-task/tap/go-task'
+
 # https://formulae.brew.sh/cask/postman#default
 cask 'postman'
 
@@ -57,3 +60,6 @@ cask '1password'
 
 # https://formulae.brew.sh/cask/spotify
 cask 'spotify'
+
+# https://formulae.brew.sh/cask/google-cloud-sdk
+cask 'google-cloud-sdk'
