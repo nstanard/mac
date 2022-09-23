@@ -59,6 +59,8 @@ function readmax {
   awk "{print NR,\$0} NR==$1{exit}"
 }
 
+alias k="kubectl"
+
 alias sys="uname -a"
 alias vi="nvim"
 alias svi="sudo nvim"
