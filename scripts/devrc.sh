@@ -84,7 +84,7 @@ alias nosleep=caffeinate -distu 360000
 # count lines of code quickly
 alias sloc="git ls-files \"*.js*\" \"*.scss\" | xargs wc -l";
 
-alias cdev="cd \$DEV_FOLDER";
+alias cdev="cd $DEV_FOLDER";
 
 alias re="sudo !!";
 alias RE="sudo !!";
@@ -259,7 +259,7 @@ lintStaged() {
 }
 
 # NodeNV
-pathmunge "\$DEV_FOLDER/.nodenv/bin"
+pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
 nodenv shell 18.7.0
 
@@ -274,6 +274,6 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'\$UTILS_FOL
 # The next line enables shell command completion for gcloud.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
 
-alias dep:nstanard="(cd \$DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
+alias dep:nstanard="(cd $DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
 
 EOF
