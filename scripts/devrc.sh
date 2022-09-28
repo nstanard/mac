@@ -274,7 +274,7 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'\$UTILS_FOL
 # The next line enables shell command completion for gcloud.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
 
-alias dep:nstanard="(cd $DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
+alias deploy:nstanard="(cd $DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
 alias gen="rai go generate"
 
 EOF
