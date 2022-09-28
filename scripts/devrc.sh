@@ -208,12 +208,11 @@ HISTSIZE=999
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
 
-# autocompletion using arrow keys (based on history)
-if [[ hB == *i* ]]
-then
-    bind '"\e[A": history-search-backward'
-    bind '"\e[B": history-search-forward'
-fi
+
+bindkey "^[[B" history-beginning-search-forward
+bindkey "^[[A" history-beginning-search-backward
+
+
 # GENERAL
 
 # never beep
