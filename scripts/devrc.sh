@@ -274,4 +274,6 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'\$UTILS_FOL
 # The next line enables shell command completion for gcloud.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
 
+alias dep:nstanard="task infra:deploy:dev ns=nstanard"
+
 EOF
