@@ -258,6 +258,8 @@ lintStaged() {
     eslint $1 $(git diff --diff-filter=TAM --staged --name-only | grep -- 'src/*')
 }
 
+alias jest="npm run test -- --coverage=false"
+
 # NodeNV
 pathmunge "$DEV_FOLDER/.nodenv/bin"
 eval "\$(nodenv init -)"
