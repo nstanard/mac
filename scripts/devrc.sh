@@ -278,5 +278,6 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTI
 
 alias deploy:nstanard="(cd $DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
 alias gen="rai go generate"
+alias gotest="rai go test"
 
 EOF
