@@ -279,6 +279,7 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTI
 export ENV="dev"
 alias sqldev="gcloud beta sql connect primary"
 alias usedev="task infra:use:dev"
+alias build:nstanard="(cd ~/Development/TheRoutingCompany/core; task infra:build:dev ns=nstanard)"
 alias deploy:nstanard="(cd ~/Development/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
 alias gen="rai go generate"
 alias jest="npm run test -- --coverage=false"
