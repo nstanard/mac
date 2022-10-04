@@ -276,8 +276,12 @@ if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/path.zsh.inc" ]; then . "'\$UTILS_FOL
 # The next line enables shell command completion for gcloud.
 if [ -f "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc" ]; then . "'\$UTILS_FOLDER'/google-cloud-sdk/completion.zsh.inc"; fi
 
-alias deploy:nstanard="(cd $DEV_FOLDER/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
+export ENV="dev"
+alias sqldev="gcloud beta sql connect primary"
+alias usedev="task infra:use:dev"
+alias deploy:nstanard="(cd ~/Development/TheRoutingCompany/core; task infra:deploy:dev ns=nstanard)"
 alias gen="rai go generate"
-alias gotest="rai go test"
+alias jest="npm run test -- --coverage=false"
+alias gest="rai go test"
 
 EOF
