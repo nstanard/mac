@@ -285,5 +285,6 @@ alias delete:nstanard="(cd ~/Development/TheRoutingCompany/core; task infra:dele
 alias gen="rai go generate"
 alias jest="npm run test -- --coverage=false"
 alias gest="rai go test"
+alias k="kubectl"
 
 EOF
