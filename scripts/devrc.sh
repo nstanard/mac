@@ -121,7 +121,7 @@ alias bc="brew services cleanup"
 alias tfstate="terraform state";
 alias tfimport="terraform import";
 alias tfinit="terraform init";
-alias tfplan="terraform plan -no-color > tfplan.txt";
+alias tfplan="terraform plan";
 alias tfapply="terraform apply";
 alias tfdestroy="terraform destroy";
 
