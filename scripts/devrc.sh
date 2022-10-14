@@ -220,7 +220,14 @@ setopt NO_BEEP
 
 # DOCKER - https://phoenixnap.com/kb/how-to-list-start-stop-docker-containers
 alias di='docker images';
-alias adi='docker images -a';
+alias di='docker images';
+alias dia='docker images -a';
+alias drun='docker run -it'
+alias dps='docker ps'
+# alias dexec='docker exec -it'
+dexec() {
+    docker exec -it $1 sh
+}
 
 # AWS DOCKER
 
