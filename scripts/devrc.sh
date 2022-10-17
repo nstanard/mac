@@ -223,10 +223,11 @@ alias di='docker images';
 alias dia='docker images -a';
 alias drun='docker run -it'
 alias dps='docker ps'
-# alias dexec='docker exec -it'
+alias dexec="docker exec -it"
 dexec() {
     docker exec -it $1 sh
 }
+
 
 # AWS DOCKER
 
